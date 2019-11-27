@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Linux JDK安装 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux JDK 安装123456789101112131415161718191. cp &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;root&#x2F;   #备份yum源2. curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo   #设置阿里云yml源3">
+  <meta name="description" content="Linux JDK 安装12345678910111213141516171. cp &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;root&#x2F;   #备份yum源2. curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo  #设置阿里云yml源3. yum">
 <meta name="keywords" content="Linux Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux JDK安装">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;27&#x2F;Linux-JDK%E5%AE%89%E8%A3%85&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Linux JDK 安装123456789101112131415161718191. cp &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;root&#x2F;   #备份yum源2. curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo   #设置阿里云yml源3">
+<meta property="og:description" content="Linux JDK 安装12345678910111213141516171. cp &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;root&#x2F;   #备份yum源2. curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo  #设置阿里云yml源3. yum">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-27T11:14:46.801Z">
+<meta property="og:updated_time" content="2019-11-27T11:17:26.565Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -58,7 +58,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+				<li><a href="/">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -134,7 +134,7 @@
 				
 					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 50%"><a href="/">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -169,7 +169,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Linux-JDK-安装"><a href="#Linux-JDK-安装" class="headerlink" title="Linux JDK 安装"></a>Linux JDK 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1. cp /etc/yum.repos.d/CentOS-Base.repo /root/   <span class="comment">#备份yum源</span></span><br><span class="line"></span><br><span class="line">2. curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line">   <span class="comment">#设置阿里云yml源</span></span><br><span class="line"></span><br><span class="line">3. yum clean cache <span class="comment">#清除缓存</span></span><br><span class="line"></span><br><span class="line">4. yum makecache  <span class="comment"># 生成缓存</span></span><br><span class="line"></span><br><span class="line">5. yum search openjdk <span class="comment">#搜索jdk</span></span><br><span class="line"></span><br><span class="line">6. rpm -qa|grep jdk <span class="comment">#查询本地是否安装jdk</span></span><br><span class="line"></span><br><span class="line">7. yum install java-1.8.0-openjdk.x86_64 <span class="comment">#下载jdk</span></span><br><span class="line"></span><br><span class="line">8. yum update <span class="comment">#更新</span></span><br><span class="line"></span><br><span class="line">9. java -version <span class="comment">#测试是否安装成功</span></span><br></pre></td></tr></table></figure>
+        <h3 id="Linux-JDK-安装"><a href="#Linux-JDK-安装" class="headerlink" title="Linux JDK 安装"></a>Linux JDK 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1. cp /etc/yum.repos.d/CentOS-Base.repo /root/   <span class="comment">#备份yum源</span></span><br><span class="line"></span><br><span class="line">2. curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo  <span class="comment">#设置阿里云yml源</span></span><br><span class="line"></span><br><span class="line">3. yum clean cache <span class="comment">#清除缓存</span></span><br><span class="line"></span><br><span class="line">4. yum makecache  <span class="comment"># 生成缓存</span></span><br><span class="line"></span><br><span class="line">5. yum search openjdk <span class="comment">#搜索jdk</span></span><br><span class="line"></span><br><span class="line">6. rpm -qa|grep jdk <span class="comment">#查询本地是否安装jdk</span></span><br><span class="line"></span><br><span class="line">7. yum install java-1.8.0-openjdk.x86_64 <span class="comment">#下载jdk</span></span><br><span class="line"></span><br><span class="line">8. yum update <span class="comment">#更新</span></span><br><span class="line"></span><br><span class="line">9. java -version <span class="comment">#测试是否安装成功</span></span><br></pre></td></tr></table></figure>
 
 
       
@@ -306,6 +306,16 @@
   
   
 
+  
+  <div id="SOHUCS" sid="Linux-JDK安装" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
   
 
   
