@@ -42,7 +42,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1570602374489.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1572408835624.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1572408960697.png">
-<meta property="og:updated_time" content="2019-11-28T04:45:25.869Z">
+<meta property="og:updated_time" content="2019-11-28T05:13:43.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1527063872737.png">
   
@@ -85,7 +85,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/">随笔</a></li>
+				<li><a href="/archives/index.html">归档</a></li>
 	        
 			</ul>
 		</nav>
@@ -161,7 +161,7 @@
 				
 					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/">随笔</a></li>
+					<li style="width: 50%"><a href="/archives/index.html">归档</a></li>
 		        
 				</ul>
 			</nav>
@@ -203,6 +203,8 @@
 <li>RabbitMQ Server安装完成之后，会自动的注册为服务，并以默认配置启动起来。</li>
 <li>在浏览器输入IP地址:15672端口号，默认用户和密码都是guest</li>
 </ol>
+<a id="more"></a>
+
 <h2 id="1-消息队列（MQ）"><a href="#1-消息队列（MQ）" class="headerlink" title="1.消息队列（MQ）"></a>1.消息队列（MQ）</h2><h3 id="1-1-什么是消息队列"><a href="#1-1-什么是消息队列" class="headerlink" title="1.1.什么是消息队列"></a>1.1.什么是消息队列</h3><p>消息队列，即MQ，Message Queue。</p>
 <p><img src="/assets/1527063872737.png" alt="1527063872737"></p>
 <p>消息队列是典型的：生产者、消费者模型。生产者不断向消息队列中生产消息，消费者不断的从队列中获取消息。因为消息的生产和消费都是异步的，而且只关心消息的发送和接收，没有业务逻辑的侵入，这样就实现了生产者和消费者的解耦。</p>
@@ -525,6 +527,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RabbitMq–旅程"><span class="toc-number">1.</span> <span class="toc-text">RabbitMq–旅程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-Windows安装"><span class="toc-number">1.1.</span> <span class="toc-text">0.Windows安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-消息队列（MQ）"><span class="toc-number">1.2.</span> <span class="toc-text">1.消息队列（MQ）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-什么是消息队列"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.1.什么是消息队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-AMQP和JMS"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.AMQP和JMS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-常见MQ产品"><span class="toc-number">1.2.3.</span> <span class="toc-text">1.3.常见MQ产品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-消息中间件"><span class="toc-number">1.2.4.</span> <span class="toc-text">1.4.消息中间件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-RabbitMQ介绍"><span class="toc-number">1.3.</span> <span class="toc-text">2.RabbitMQ介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-相关概念（发消息者、队列、收消息者、交换机）"><span class="toc-number">1.3.1.</span> <span class="toc-text">2.1.相关概念（发消息者、队列、收消息者、交换机）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-交换机-Exchange"><span class="toc-number">1.3.2.</span> <span class="toc-text">2.2.交换机(Exchange)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-SpringBoot集成RabbitMQ–-Spring-AMQP"><span class="toc-number">1.4.</span> <span class="toc-text">3.SpringBoot集成RabbitMQ–(Spring AMQP)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-简介"><span class="toc-number">1.4.1.</span> <span class="toc-text">3.1.简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-依赖配置"><span class="toc-number">1.4.2.</span> <span class="toc-text">3.2.依赖配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-配置文件"><span class="toc-number">1.4.3.</span> <span class="toc-text">3.3.配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-队列配置（在消费端配置）"><span class="toc-number">1.4.4.</span> <span class="toc-text">3.4.队列配置（在消费端配置）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-生产者（发送者）"><span class="toc-number">1.4.5.</span> <span class="toc-text">3.5.生产者（发送者）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-消费者（接收者）"><span class="toc-number">1.4.6.</span> <span class="toc-text">3.6.消费者（接收者）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-测试"><span class="toc-number">1.4.7.</span> <span class="toc-text">3.7.测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-一对多使用"><span class="toc-number">1.4.8.</span> <span class="toc-text">3.8.一对多使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-发送对象数据信息"><span class="toc-number">1.4.9.</span> <span class="toc-text">3.9.发送对象数据信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-10-Topic-Exchange模式"><span class="toc-number">1.4.10.</span> <span class="toc-text">3.10.Topic Exchange模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-11-Fanout-Exchange模式"><span class="toc-number">1.4.11.</span> <span class="toc-text">3.11.Fanout Exchange模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-12-简写形式"><span class="toc-number">1.4.12.</span> <span class="toc-text">3.12.简写形式</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
