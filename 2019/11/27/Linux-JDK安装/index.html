@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Linux JDK安装 | Z_blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux JDK 安装12345678910111213141516171. cp &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;root&#x2F;   #备份yum源2. curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo  #设置阿里云yml源3. yum">
+  <meta name="description" content="12345678910111213141516171. cp &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;root&#x2F;   #备份yum源2. curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo  #设置阿里云yml源3. yum clean cache">
 <meta name="keywords" content="Linux Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux JDK安装">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;27&#x2F;Linux-JDK%E5%AE%89%E8%A3%85&#x2F;index.html">
 <meta property="og:site_name" content="Z_blog">
-<meta property="og:description" content="Linux JDK 安装12345678910111213141516171. cp &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;root&#x2F;   #备份yum源2. curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo  #设置阿里云yml源3. yum">
+<meta property="og:description" content="12345678910111213141516171. cp &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;root&#x2F;   #备份yum源2. curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo  #设置阿里云yml源3. yum clean cache">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-27T11:17:26.565Z">
+<meta property="og:updated_time" content="2019-12-02T06:27:41.965Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Z_blog" type="application/atom+xml">
@@ -169,7 +169,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Linux-JDK-安装"><a href="#Linux-JDK-安装" class="headerlink" title="Linux JDK 安装"></a>Linux JDK 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1. cp /etc/yum.repos.d/CentOS-Base.repo /root/   <span class="comment">#备份yum源</span></span><br><span class="line"></span><br><span class="line">2. curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo  <span class="comment">#设置阿里云yml源</span></span><br><span class="line"></span><br><span class="line">3. yum clean cache <span class="comment">#清除缓存</span></span><br><span class="line"></span><br><span class="line">4. yum makecache  <span class="comment"># 生成缓存</span></span><br><span class="line"></span><br><span class="line">5. yum search openjdk <span class="comment">#搜索jdk</span></span><br><span class="line"></span><br><span class="line">6. rpm -qa|grep jdk <span class="comment">#查询本地是否安装jdk</span></span><br><span class="line"></span><br><span class="line">7. yum install java-1.8.0-openjdk.x86_64 <span class="comment">#下载jdk</span></span><br><span class="line"></span><br><span class="line">8. yum update <span class="comment">#更新</span></span><br><span class="line"></span><br><span class="line">9. java -version <span class="comment">#测试是否安装成功</span></span><br></pre></td></tr></table></figure>
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1. cp /etc/yum.repos.d/CentOS-Base.repo /root/   <span class="comment">#备份yum源</span></span><br><span class="line"></span><br><span class="line">2. curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo  <span class="comment">#设置阿里云yml源</span></span><br><span class="line"></span><br><span class="line">3. yum clean cache <span class="comment">#清除缓存</span></span><br><span class="line"></span><br><span class="line">4. yum makecache  <span class="comment"># 生成缓存</span></span><br><span class="line"></span><br><span class="line">5. yum search openjdk <span class="comment">#搜索jdk</span></span><br><span class="line"></span><br><span class="line">6. rpm -qa|grep jdk <span class="comment">#查询本地是否安装jdk</span></span><br><span class="line"></span><br><span class="line">7. yum install java-1.8.0-openjdk.x86_64 <span class="comment">#下载jdk</span></span><br><span class="line"></span><br><span class="line">8. yum update <span class="comment">#更新</span></span><br><span class="line"></span><br><span class="line">9. java -version <span class="comment">#测试是否安装成功</span></span><br></pre></td></tr></table></figure>
 
 
       
@@ -308,7 +308,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-JDK-安装"><span class="toc-number">1.</span> <span class="toc-text">Linux JDK 安装</span></a></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
