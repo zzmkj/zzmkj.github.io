@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | Z_blog</title>
+  <title>&#39;Mysql添加用户、删除用户与授权&#39; | Z_blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Z_blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2019&#x2F;index.html">
+  <meta name="description" content="Mysql 添加用户、删除用户与授权一、创建用户以root用户登录到数据库进行用户创建 命令： 1CREATE USER &amp;apos;username&amp;apos;@&amp;apos;host&amp;apos; IDENTIFIED BY &amp;apos;password&amp;apos;;  注意: 12345username——将要创建的用户名；host——指定该用户在哪个主机上可以登录，&amp;quot;localhos">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;Mysql添加用户、删除用户与授权&#39;">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83&#x2F;index.html">
 <meta property="og:site_name" content="Z_blog">
+<meta property="og:description" content="Mysql 添加用户、删除用户与授权一、创建用户以root用户登录到数据库进行用户创建 命令： 1CREATE USER &amp;apos;username&amp;apos;@&amp;apos;host&amp;apos; IDENTIFIED BY &amp;apos;password&amp;apos;;  注意: 12345username——将要创建的用户名；host——指定该用户在哪个主机上可以登录，&amp;quot;localhos">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-02T06:22:14.421Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Z_blog" type="application/atom+xml">
@@ -145,36 +149,97 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Mysql添加用户、删除用户与授权" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/02/Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/" class="archive-article-date">
-  	<time datetime="2019-12-02T06:21:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/02/Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/">&#39;Mysql添加用户、删除用户与授权&#39;</a>
+    <h1 class="article-title" itemprop="name">
+      &#39;Mysql添加用户、删除用户与授权&#39;
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/12/02/Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/" class="archive-article-date">
+  	<time datetime="2019-12-02T06:21:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Mysql-添加用户、删除用户与授权"><a href="#Mysql-添加用户、删除用户与授权" class="headerlink" title="Mysql 添加用户、删除用户与授权"></a>Mysql 添加用户、删除用户与授权</h1><h2 id="一、创建用户"><a href="#一、创建用户" class="headerlink" title="一、创建用户"></a>一、创建用户</h2><p>以root用户登录到数据库进行用户创建</p>
+<p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;username&apos;@&apos;host&apos; IDENTIFIED BY &apos;password&apos;;</span><br></pre></td></tr></table></figure>
+
+<p><font color="red" style="font-weight:bold">注意:</font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">username——将要创建的用户名；</span><br><span class="line"></span><br><span class="line">host——指定该用户在哪个主机上可以登录，&quot;localhost&quot;指该用户只能在本地登录，不能在另外一台机器上远程登录，如果想远程登录，将&quot;localhost&quot;改为&quot;%&quot;，表示在任何一台电脑上都可以登录；也可以指定某台机器可以远程登录；</span><br><span class="line"></span><br><span class="line">password——该用户的登录密码，密码可以为空，若为空则该用户可以不需要密码登录服务器。</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;test_admin&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;admin@123_S&apos;;</span><br><span class="line">CREATE USER &apos;test_admin2&apos;@&apos;%&apos; IDENTIFIED BY &apos;&apos;;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="二、授权"><a href="#二、授权" class="headerlink" title="二、授权"></a>二、授权</h2><p>以root用户登录到数据库进行授权</p>
+<p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT privileges ON databasename.tablename TO &apos;username&apos;@&apos;host&apos;</span><br></pre></td></tr></table></figure>
+
+<p><font color="red" style="font-weight:bold">注意:</font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privileges——用户的操作权限，如SELECT等。如果授予所有权限则使用ALL。</span><br><span class="line"></span><br><span class="line">databasename——数据库名称。tablename——表名。如果要给该用户授予对所有数据库和表的相应操作权限则可用*表示，例如*.*</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GRANT SELECT ON test_db.* TO &apos;test_admin2&apos;@&apos;%&apos;;</span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON `geek`.* TO &apos;geek&apos;@&apos;localhost&apos; identified BY &apos;Ywx159!.&apos; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">注意:必须执行flush privileges;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、撤销用户权限"><a href="#三、撤销用户权限" class="headerlink" title="三、撤销用户权限"></a>三、撤销用户权限</h2><p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REVOKE privilege ON databasename.tablename FROM &apos;username&apos;@&apos;host&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REVOKE SELECT ON test_db.* FROM &apos;test_min&apos;@&apos;%&apos;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、删除账户及权限"><a href="#四、删除账户及权限" class="headerlink" title="四、删除账户及权限"></a>四、删除账户及权限</h2><p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop user &apos;username&apos;@&apos;host&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop user &apos;test_admin&apos;@&apos;localhost&apos;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="五、查看用户的授权"><a href="#五、查看用户的授权" class="headerlink" title="五、查看用户的授权"></a>五、查看用户的授权</h2><p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW GRANTS FOR &apos;username&apos;@&apos;host&apos;</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW GRANTS FOR &apos;test_admin&apos;@&apos;%&apos; ;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -186,95 +251,129 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/02/Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/28/RabbitMq%E6%8C%87%E5%8D%97/" class="archive-article-date">
-  	<time datetime="2019-11-28T04:38:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/28/RabbitMq%E6%8C%87%E5%8D%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RabbitMq指南</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/28/RabbitMq%E6%8C%87%E5%8D%97/">RabbitMq指南</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java Rabbit</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mysql-添加用户、删除用户与授权"><span class="toc-number">1.</span> <span class="toc-text">Mysql 添加用户、删除用户与授权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、创建用户"><span class="toc-number">1.1.</span> <span class="toc-text">一、创建用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、授权"><span class="toc-number">1.2.</span> <span class="toc-text">二、授权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、撤销用户权限"><span class="toc-number">1.3.</span> <span class="toc-text">三、撤销用户权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、删除账户及权限"><span class="toc-number">1.4.</span> <span class="toc-text">四、删除账户及权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、查看用户的授权"><span class="toc-number">1.5.</span> <span class="toc-text">五、查看用户的授权</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/27/Linux-JDK%E5%AE%89%E8%A3%85/" class="archive-article-date">
-  	<time datetime="2019-11-27T11:04:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-27</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/27/Linux-JDK%E5%AE%89%E8%A3%85/">Linux JDK安装</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
+  <div id="SOHUCS" sid="Mysql添加用户、删除用户与授权" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -297,8 +396,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
