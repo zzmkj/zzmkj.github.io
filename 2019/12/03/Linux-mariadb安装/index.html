@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Mysql添加用户、删除用户与授权 | Z_blog</title>
+  <title>Linux_mariadb安装 | Z_blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、创建用户以root用户登录到数据库进行用户创建 命令： 1CREATE USER &amp;apos;username&amp;apos;@&amp;apos;host&amp;apos; IDENTIFIED BY &amp;apos;password&amp;apos;;  注意: 12345username——将要创建的用户名；host——指定该用户在哪个主机上可以登录，&amp;quot;localhost&amp;quot;指该用户只能在本地登录">
-<meta name="keywords" content="mysql">
+  <meta name="description" content="Mariadb官网链接：https:&#x2F;&#x2F;downloads.mariadb.org&#x2F;mariadb&#x2F;repositories&#x2F;#distro=CentOS&amp;amp;distro_release=centos7-amd64--centos7&amp;amp;mirror=rackspace&amp;amp;version=10.4 1.创建MariaDB.repo文件编辑写入mariadb yum存储库链接1Her">
+<meta name="keywords" content="linux,mariadb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mysql添加用户、删除用户与授权">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83&#x2F;index.html">
+<meta property="og:title" content="Linux_mariadb安装">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;Linux-mariadb%E5%AE%89%E8%A3%85&#x2F;index.html">
 <meta property="og:site_name" content="Z_blog">
-<meta property="og:description" content="一、创建用户以root用户登录到数据库进行用户创建 命令： 1CREATE USER &amp;apos;username&amp;apos;@&amp;apos;host&amp;apos; IDENTIFIED BY &amp;apos;password&amp;apos;;  注意: 12345username——将要创建的用户名；host——指定该用户在哪个主机上可以登录，&amp;quot;localhost&amp;quot;指该用户只能在本地登录">
+<meta property="og:description" content="Mariadb官网链接：https:&#x2F;&#x2F;downloads.mariadb.org&#x2F;mariadb&#x2F;repositories&#x2F;#distro=CentOS&amp;amp;distro_release=centos7-amd64--centos7&amp;amp;mirror=rackspace&amp;amp;version=10.4 1.创建MariaDB.repo文件编辑写入mariadb yum存储库链接1Her">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-02T06:30:19.957Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1567473907705-1567475997853.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1567474118476.png">
+<meta property="og:updated_time" content="2019-12-03T08:54:09.197Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1567473907705-1567475997853.png">
   
     <link rel="alternative" href="/atom.xml" title="Z_blog" type="application/atom+xml">
   
@@ -149,68 +152,57 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Mysql添加用户、删除用户与授权" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Linux-mariadb安装" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Mysql添加用户、删除用户与授权
+      Linux_mariadb安装
     </h1>
   
 
         
-        <a href="/2019/12/02/Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/" class="archive-article-date">
-  	<time datetime="2019-12-02T06:21:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
+        <a href="/2019/12/03/Linux-mariadb%E5%AE%89%E8%A3%85/" class="archive-article-date">
+  	<time datetime="2019-12-03T08:49:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、创建用户"><a href="#一、创建用户" class="headerlink" title="一、创建用户"></a>一、创建用户</h2><p>以root用户登录到数据库进行用户创建</p>
-<p>命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;username&apos;@&apos;host&apos; IDENTIFIED BY &apos;password&apos;;</span><br></pre></td></tr></table></figure>
+        <p>Mariadb官网链接：<a href="https://downloads.mariadb.org/mariadb/repositories/#distro=CentOS&amp;distro_release=centos7-amd64--centos7&amp;mirror=rackspace&amp;version=10.4" target="_blank" rel="noopener">https://downloads.mariadb.org/mariadb/repositories/#distro=CentOS&amp;distro_release=centos7-amd64--centos7&amp;mirror=rackspace&amp;version=10.4</a></p>
+<h2 id="1-创建MariaDB-repo文件编辑写入mariadb-yum存储库链接"><a href="#1-创建MariaDB-repo文件编辑写入mariadb-yum存储库链接" class="headerlink" title="1.创建MariaDB.repo文件编辑写入mariadb yum存储库链接"></a>1.创建MariaDB.repo文件编辑写入mariadb yum存储库链接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Here is your custom MariaDB YUM repository entry for CentOS. Copy and paste it into a file under /etc/yum.repos.d/ (we suggest naming the file MariaDB.repo or something similar).</span><br></pre></td></tr></table></figure>
 
-<p><font color="red" style="font-weight:bold">注意:</font></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">username——将要创建的用户名；</span><br><span class="line"></span><br><span class="line">host——指定该用户在哪个主机上可以登录，&quot;localhost&quot;指该用户只能在本地登录，不能在另外一台机器上远程登录，如果想远程登录，将&quot;localhost&quot;改为&quot;%&quot;，表示在任何一台电脑上都可以登录；也可以指定某台机器可以远程登录；</span><br><span class="line"></span><br><span class="line">password——该用户的登录密码，密码可以为空，若为空则该用户可以不需要密码登录服务器。</span><br></pre></td></tr></table></figure>
-
-<p>例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;test_admin&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;admin@123_S&apos;;</span><br><span class="line">CREATE USER &apos;test_admin2&apos;@&apos;%&apos; IDENTIFIED BY &apos;&apos;;</span><br></pre></td></tr></table></figure>
-
+<p>这是CentOS的自定义MariaDB YUM存储库链接。将下面这段复制并粘贴到/etc/yum.repos.d/下的文件中（我们建议命名文件MariaDB.repo或类似的命名文件）</p>
 <a id="more"></a>
 
-<h2 id="二、授权"><a href="#二、授权" class="headerlink" title="二、授权"></a>二、授权</h2><p>以root用户登录到数据库进行授权</p>
-<p>命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT privileges ON databasename.tablename TO &apos;username&apos;@&apos;host&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># MariaDB <span class="number">10.4</span> CentOS repository <span class="keyword">list</span> - created <span class="number">2019</span>-<span class="number">09</span>-<span class="number">03</span> <span class="number">00</span>:<span class="number">58</span> UTC</span><br><span class="line"># http://downloads.mariadb.org/mariadb/repositories/</span><br><span class="line">[mariadb]</span><br><span class="line">name = MariaDB</span><br><span class="line">baseurl = http://yum.mariadb.org/<span class="number">10.4</span>/centos7-amd64</span><br><span class="line">gpgkey=http<span class="variable">s:</span>//yum.mariadb.org/RPM-GPG-KEY-MariaDB</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
-<p><font color="red" style="font-weight:bold">注意:</font></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privileges——用户的操作权限，如SELECT等。如果授予所有权限则使用ALL。</span><br><span class="line"></span><br><span class="line">databasename——数据库名称。tablename——表名。如果要给该用户授予对所有数据库和表的相应操作权限则可用*表示，例如*.*</span><br></pre></td></tr></table></figure>
+<h2 id="2-文件编辑完成后，安装MariaDB"><a href="#2-文件编辑完成后，安装MariaDB" class="headerlink" title="2.文件编辑完成后，安装MariaDB"></a>2.文件编辑完成后，安装MariaDB</h2><p>安装MariaDB服务器和客户端软件包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install MariaDB-server MariaDB-client</span><br></pre></td></tr></table></figure>
 
-<p>例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GRANT SELECT ON test_db.* TO &apos;test_admin2&apos;@&apos;%&apos;;</span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON `geek`.* TO &apos;geek&apos;@&apos;localhost&apos; identified BY &apos;Ywx159!.&apos; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">注意:必须执行flush privileges;</span><br></pre></td></tr></table></figure>
+<p>yum安装过程中，可能会提示您导入MariaDB GPG密钥：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">从 https://yum.mariadb.org/RPM-GPG-KEY-MariaDB 检索密钥</span><br><span class="line">导入 GPG key 0x1BB943DB:</span><br><span class="line"> 用户ID     : &quot;MariaDB Package Signing Key &lt;package-signing-key@mariadb.org&gt;&quot;</span><br><span class="line"> 指纹       : 1993 69e5 404b d5fc 7d2f e43b cbcb 082a 1bb9 43db</span><br><span class="line"> 来自       : https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</span><br><span class="line">是否继续？[y/N]：y</span><br><span class="line"></span><br><span class="line">输入y，按enter即可</span><br></pre></td></tr></table></figure>
 
-<h2 id="三、撤销用户权限"><a href="#三、撤销用户权限" class="headerlink" title="三、撤销用户权限"></a>三、撤销用户权限</h2><p>命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REVOKE privilege ON databasename.tablename FROM &apos;username&apos;@&apos;host&apos;;</span><br></pre></td></tr></table></figure>
+<h2 id="3-安装完成后，启动MariaDB"><a href="#3-安装完成后，启动MariaDB" class="headerlink" title="3.安装完成后，启动MariaDB"></a>3.安装完成后，启动MariaDB</h2><p>启动mariadb</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mariadb</span><br></pre></td></tr></table></figure>
 
-<p>例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REVOKE SELECT ON test_db.* FROM &apos;test_min&apos;@&apos;%&apos;;</span><br></pre></td></tr></table></figure>
+<p>设置开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable mariadb</span><br></pre></td></tr></table></figure>
 
-<h2 id="四、删除账户及权限"><a href="#四、删除账户及权限" class="headerlink" title="四、删除账户及权限"></a>四、删除账户及权限</h2><p>命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop user &apos;username&apos;@&apos;host&apos;;</span><br></pre></td></tr></table></figure>
+<p>查看mariadb状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status mariadb</span><br></pre></td></tr></table></figure>
 
-<p>例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop user &apos;test_admin&apos;@&apos;localhost&apos;;</span><br></pre></td></tr></table></figure>
+<p><img src="/assets/1567473907705-1567475997853.png" alt="1567473907705"></p>
+<h2 id="4-最后一步是运行mysql-secure-installation脚本，该脚本将执行几个与安全相关的任务"><a href="#4-最后一步是运行mysql-secure-installation脚本，该脚本将执行几个与安全相关的任务" class="headerlink" title="4.最后一步是运行mysql_secure_installation脚本，该脚本将执行几个与安全相关的任务"></a>4.最后一步是运行<code>mysql_secure_installation</code>脚本，该脚本将执行几个与安全相关的任务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure>
 
+<p>该脚本将提示您设置root用户密码，删除匿名用户，限制root用户对本地计算机的访问，以及删除测试数据库。</p>
+<p>所有步骤都会详细解释，建议回答<code>Y</code>（是）所有问题。</p>
+<h2 id="5-连接mariadb数据库"><a href="#5-连接mariadb数据库" class="headerlink" title="5.连接mariadb数据库"></a>5.连接mariadb数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
 
-
-<h2 id="五、查看用户的授权"><a href="#五、查看用户的授权" class="headerlink" title="五、查看用户的授权"></a>五、查看用户的授权</h2><p>命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW GRANTS FOR &apos;username&apos;@&apos;host&apos;</span><br></pre></td></tr></table></figure>
-
-<p>例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW GRANTS FOR &apos;test_admin&apos;@&apos;%&apos; ;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/assets/1567474118476.png" alt="1567474118476"></p>
 
       
 
@@ -245,7 +237,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mariadb</a>
         		</li>
       		
 		</ul>
@@ -301,7 +297,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/02/Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/03/Linux-mariadb%E5%AE%89%E8%A3%85/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -315,18 +311,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/12/03/Linux-mariadb%E5%AE%89%E8%A3%85/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Linux_mariadb安装
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/11/28/RabbitMq%E6%8C%87%E5%8D%97/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">RabbitMq指南</div>
+    <a href="/2019/12/02/Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mysql添加用户、删除用户与授权</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -353,7 +340,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、创建用户"><span class="toc-number">1.</span> <span class="toc-text">一、创建用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、授权"><span class="toc-number">2.</span> <span class="toc-text">二、授权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、撤销用户权限"><span class="toc-number">3.</span> <span class="toc-text">三、撤销用户权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、删除账户及权限"><span class="toc-number">4.</span> <span class="toc-text">四、删除账户及权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、查看用户的授权"><span class="toc-number">5.</span> <span class="toc-text">五、查看用户的授权</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建MariaDB-repo文件编辑写入mariadb-yum存储库链接"><span class="toc-number">1.</span> <span class="toc-text">1.创建MariaDB.repo文件编辑写入mariadb yum存储库链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-文件编辑完成后，安装MariaDB"><span class="toc-number">2.</span> <span class="toc-text">2.文件编辑完成后，安装MariaDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-安装完成后，启动MariaDB"><span class="toc-number">3.</span> <span class="toc-text">3.安装完成后，启动MariaDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-最后一步是运行mysql-secure-installation脚本，该脚本将执行几个与安全相关的任务"><span class="toc-number">4.</span> <span class="toc-text">4.最后一步是运行mysql_secure_installation脚本，该脚本将执行几个与安全相关的任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-连接mariadb数据库"><span class="toc-number">5.</span> <span class="toc-text">5.连接mariadb数据库</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -369,7 +356,7 @@
   
 
   
-  <div id="SOHUCS" sid="Mysql添加用户、删除用户与授权" ></div> 
+  <div id="SOHUCS" sid="Linux-mariadb安装" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
