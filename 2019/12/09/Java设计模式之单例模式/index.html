@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="Z_blog">
 <meta property="og:description" content="0.前言在有些系统中，为了节省内存资源、保证数据内容的一致性，对某些类要求只能创建一个实例，这就是所谓的单例模式。下面我我们具体介绍下单例模式的定义与特点、单例模式的结构与实现、单例模式的应用实例、单例模式的应用场景和单例模式的扩展。 1.单例模式的定义与特点单例（Singleton）模式的定义：指一个类只有一个实例，且该类能自行创建这个实例的一种模式。例如，Windows 中只能打开一个任务管理">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;09&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&#x2F;assets&#x2F;sing1.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;09&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&#x2F;assets&#x2F;sing2.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;09&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&#x2F;assets&#x2F;sing3.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;09&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&#x2F;assets&#x2F;1575883684553.png">
-<meta property="og:updated_time" content="2019-12-09T09:42:27.755Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;sing1.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;sing2.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;sing3.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1575883684553.png">
+<meta property="og:updated_time" content="2019-12-09T09:46:01.245Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;09&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&#x2F;assets&#x2F;sing1.jpg">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;sing1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Z_blog" type="application/atom+xml">
   
@@ -193,7 +193,7 @@
 <p>单例类：包含一个实例且能自行创建这个实例的类。</p>
 <p>访问类：使用单例的类。</p>
 <p>其结构如图 1 所示。</p>
-<p><img src="assets/sing1.jpg" alt="sing1"></p>
+<p><img src="/assets/sing1.jpg" alt="sing1"></p>
 <h3 id="2-2-单例模式的实现"><a href="#2-2-单例模式的实现" class="headerlink" title="2.2. 单例模式的实现"></a>2.2. 单例模式的实现</h3><p>Singleton 模式通常有两种实现形式。</p>
 <h4 id="第-1-种：懒汉式单例"><a href="#第-1-种：懒汉式单例" class="headerlink" title="第 1 种：懒汉式单例"></a>第 1 种：懒汉式单例</h4><p>该模式的特点是类加载时没有生成单例，只有当第一次调用 getlnstance 方法时才去创建这个单例。代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> LazySingleton</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 懒汉式单例 (该模式的特点是类加载时没有生成单例，只有当第一次调用 getInstance 方法时才去创建这个单例。)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/6 10:33</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingleton</span> </span>&#123;</span><br><span class="line">    <span class="comment">//保证 instance 在所有线程中同步</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> LazySingleton instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//private 避免类在外部被实例化</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazySingleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//getInstance 方法前加synchronized同步</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> LazySingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> LazySingleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -204,7 +204,7 @@
 
 <p>饿汉式单例在类创建的同时就已经创建好一个静态的对象供系统使用，以后不再改变，所以是线程安全的，可以直接用于多线程而不会出现问题。</p>
 <h2 id="3-单例模式的应用实例"><a href="#3-单例模式的应用实例" class="headerlink" title="3.单例模式的应用实例"></a>3.单例模式的应用实例</h2><h4 id="【例1】用懒汉式单例模式模拟产生美国当今总统对象。"><a href="#【例1】用懒汉式单例模式模拟产生美国当今总统对象。" class="headerlink" title="【例1】用懒汉式单例模式模拟产生美国当今总统对象。"></a>【例1】用懒汉式单例模式模拟产生美国当今总统对象。</h4><p>分析：在每一届任期内，美国的总统只有一人，所以本实例适合用单例模式实现，图 2 所示是用懒汉式单例实现的结构图。</p>
-<p><img src="assets/sing2.jpg" alt="sing2"></p>
+<p><img src="/assets/sing2.jpg" alt="sing2"></p>
 <div style="font-weight:bold; text-align: center;">图2 美国总统生成器的结构图</div>
 
 
@@ -223,7 +223,7 @@
 
 
 <h4 id="【例2】用饿汉式单例模式模拟产生猪八戒对象"><a href="#【例2】用饿汉式单例模式模拟产生猪八戒对象" class="headerlink" title="【例2】用饿汉式单例模式模拟产生猪八戒对象."></a>【例2】用饿汉式单例模式模拟产生猪八戒对象.</h4><p>分析：同上例类似，猪八戒也只有一个，所以本实例同样适合用单例模式实现。本实例由于要显示猪八戒的图像（程序所要显示的猪八戒图片可以从网上或源代码中下载），所以用到了框架窗体 JFrame 组件，这里的猪八戒类是单例类，可以将其定义成面板 JPanel 的子类，里面包含了标签，用于保存猪八戒的图像，客户窗体可以获得猪八戒对象，并显示它。图 3 所示是用饿汉式单例实现的结构图。</p>
-<p><img src="assets/sing3.jpg" alt="sing2"></p>
+<p><img src="/assets/sing3.jpg" alt="sing2"></p>
 <div style="font-weight:bold; text-align: center;">图3 猪八戒生成器的结构图</div>
 
 
@@ -233,7 +233,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> HungrySingletonExample</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 饿汉式单例 应用场景例子说明：用饿汉式单例模式模拟产生猪八戒对象。</span></span><br><span class="line"><span class="comment"> * 分析：同上例类似，猪八戒也只有一个，所以本实例同样适合用单例模式实现。</span></span><br><span class="line"><span class="comment"> * 本实例由于要显示猪八戒的图像（点此下载该程序所要显示的猪八戒图片），</span></span><br><span class="line"><span class="comment"> * 所以用到了框架窗体 JFrame 组件，这里的猪八戒类是单例类，</span></span><br><span class="line"><span class="comment"> * 可以将其定义成面板 JPanel 的子类，里面包含了标签，用于保存猪八戒的图像，客户窗体可以获得猪八戒对象，并显示它。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/6 11:22</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HungrySingletonExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        JFrame jf = <span class="keyword">new</span> JFrame(<span class="string">"饿汉单例模式例子测试"</span>);</span><br><span class="line">        jf.setLayout(<span class="keyword">new</span> GridLayout(<span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line">        Container contentPane = jf.getContentPane();</span><br><span class="line">        Bajie bajie1 = Bajie.getInstance();</span><br><span class="line">        contentPane.add(bajie1);</span><br><span class="line">        Bajie bajie2 = Bajie.getInstance();</span><br><span class="line">        contentPane.add(bajie2);</span><br><span class="line">        <span class="keyword">if</span> (bajie1 == bajie2) &#123;</span><br><span class="line">            System.out.println(<span class="string">"他们是同一人！"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"他们不是同一人！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        jf.pack();</span><br><span class="line">        jf.setVisible(<span class="keyword">true</span>);</span><br><span class="line">        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>程序运行结果如下图所示：</p>
-<p><img src="assets/1575883684553.png" alt="1575883684553"></p>
+<p><img src="/assets/1575883684553.png" alt="1575883684553"></p>
 <h2 id="4-单例模式的应用场景"><a href="#4-单例模式的应用场景" class="headerlink" title="4.单例模式的应用场景"></a>4.单例模式的应用场景</h2><p>前面分析了单例模式的结构与特点，以下是它通常适用的场景的特点。</p>
 <p>在应用场景中，某类只要求生成一个对象的时候，如一个班中的班长、每个人的身份证号等。</p>
 <p>当对象需要被共享的场合。由于单例模式只允许创建一个对象，共享该对象可以节省内存，并加快对象访问速度。如 Web 中的配置对象、数据库的连接池等。</p>
@@ -493,6 +493,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mariadb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -502,14 +510,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mariadb</a>
               </li>
              
               <li class="article-tag-list-item">
