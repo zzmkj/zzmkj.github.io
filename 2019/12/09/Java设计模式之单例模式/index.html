@@ -20,7 +20,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;09&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&#x2F;assets&#x2F;sing2.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;09&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&#x2F;assets&#x2F;sing3.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;09&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&#x2F;assets&#x2F;1575883684553.png">
-<meta property="og:updated_time" content="2019-12-09T09:33:35.563Z">
+<meta property="og:updated_time" content="2019-12-09T09:42:27.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;09&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&#x2F;assets&#x2F;sing1.jpg">
   
@@ -205,7 +205,8 @@
 <p>饿汉式单例在类创建的同时就已经创建好一个静态的对象供系统使用，以后不再改变，所以是线程安全的，可以直接用于多线程而不会出现问题。</p>
 <h2 id="3-单例模式的应用实例"><a href="#3-单例模式的应用实例" class="headerlink" title="3.单例模式的应用实例"></a>3.单例模式的应用实例</h2><h4 id="【例1】用懒汉式单例模式模拟产生美国当今总统对象。"><a href="#【例1】用懒汉式单例模式模拟产生美国当今总统对象。" class="headerlink" title="【例1】用懒汉式单例模式模拟产生美国当今总统对象。"></a>【例1】用懒汉式单例模式模拟产生美国当今总统对象。</h4><p>分析：在每一届任期内，美国的总统只有一人，所以本实例适合用单例模式实现，图 2 所示是用懒汉式单例实现的结构图。</p>
 <p><img src="assets/sing2.jpg" alt="sing2"></p>
-<center style="font-weight:bold">图2 美国总统生成器的结构图<center>
+<div style="font-weight:bold; text-align: center;">图2 美国总统生成器的结构图</div>
+
 
 
 
@@ -223,7 +224,8 @@
 
 <h4 id="【例2】用饿汉式单例模式模拟产生猪八戒对象"><a href="#【例2】用饿汉式单例模式模拟产生猪八戒对象" class="headerlink" title="【例2】用饿汉式单例模式模拟产生猪八戒对象."></a>【例2】用饿汉式单例模式模拟产生猪八戒对象.</h4><p>分析：同上例类似，猪八戒也只有一个，所以本实例同样适合用单例模式实现。本实例由于要显示猪八戒的图像（程序所要显示的猪八戒图片可以从网上或源代码中下载），所以用到了框架窗体 JFrame 组件，这里的猪八戒类是单例类，可以将其定义成面板 JPanel 的子类，里面包含了标签，用于保存猪八戒的图像，客户窗体可以获得猪八戒对象，并显示它。图 3 所示是用饿汉式单例实现的结构图。</p>
 <p><img src="assets/sing3.jpg" alt="sing2"></p>
-<center style="font-weight:bold">图3 猪八戒生成器的结构图<center>
+<div style="font-weight:bold; text-align: center;">图3 猪八戒生成器的结构图</div>
+
 
 <p>程序代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> Bajie</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 八戒 类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/6 11:26</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bajie</span> <span class="keyword">extends</span> <span class="title">JPanel</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Bajie instance = <span class="keyword">new</span> Bajie();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Bajie</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        JLabel l1 = <span class="keyword">new</span> JLabel(<span class="keyword">new</span> ImageIcon(<span class="string">"src/Bajie.jpg"</span>));</span><br><span class="line">        <span class="keyword">this</span>.add(l1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bajie <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -499,15 +501,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mariadb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
