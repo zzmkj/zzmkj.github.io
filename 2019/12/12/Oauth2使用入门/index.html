@@ -18,7 +18,16 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;oauth1.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;oauth2.jpg">
-<meta property="og:updated_time" content="2019-12-12T11:00:12.195Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1576151623530.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8&#x2F;assets&#x2F;1576151670741.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8&#x2F;assets&#x2F;1576151690997.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8&#x2F;assets&#x2F;1576151817331.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8&#x2F;assets&#x2F;1576151872825.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8&#x2F;assets&#x2F;1576151936804.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8&#x2F;assets&#x2F;1576152042243.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8&#x2F;assets&#x2F;1576152034701.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8&#x2F;assets&#x2F;1576152087641.png">
+<meta property="og:updated_time" content="2019-12-12T12:02:14.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;oauth1.jpg">
   
@@ -248,8 +257,29 @@
 <li><p>添加需要登录的接口用于测试：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserController</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/12 17:49</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/getCurrentUser"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getCurrentUser</span><span class="params">(Authentication authentication)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> authentication.getPrincipal();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
 </li>
 </ul>
+<h2 id="6-测试"><a href="#6-测试" class="headerlink" title="6.测试"></a>6.测试</h2><h3 id="6-1-授权码测试"><a href="#6-1-授权码测试" class="headerlink" title="6.1.授权码测试"></a>6.1.授权码测试</h3><p>浏览器访问获取授权码地址：</p>
+<p><a href="http://localhost:9100/oauth/authorize?response_type=code&amp;client_id=admin&amp;redirect_uri=http://www.baidu.com&amp;scope=all&amp;state=normal" target="_blank" rel="noopener">http://localhost:9100/oauth/authorize?response_type=code&amp;client_id=admin&amp;redirect_uri=http://www.baidu.com&amp;scope=all&amp;state=normal</a></p>
+<p>输入用户名和密码</p>
+<p><img src="/assets/1576151623530.png" alt="1576151623530"></p>
+<p>同意认证请求</p>
+<p><img src="assets/1576151670741.png" alt="1576151670741"></p>
+<p><img src="assets/1576151690997.png" alt="1576151690997"></p>
+<p>同意后跳转到回调地址，同时参数上带上了授权码参数，code=HDPpCP</p>
+<p>拿到授权码再去请求认证服务器拿到token，这里使用postman进行测试。</p>
+<p>配置授权请求头信息：client_id、client_secret</p>
+<p><img src="assets/1576151817331.png" alt="1576151817331"></p>
+<p>使用form表单进行提交</p>
+<p><img src="assets/1576151872825.png" alt="1576151872825"></p>
+<p>然后再携带token去请求访问资源</p>
+<p><img src="assets/1576151936804.png" alt="1576151936804"></p>
+<h3 id="6-2-密码模式测试"><a href="#6-2-密码模式测试" class="headerlink" title="6.2.密码模式测试"></a>6.2.密码模式测试</h3><p>配置授权请求头信息：client_id、client_secret，form表单提交用户名和密码到认证服务器上进行认证，认证成功后返回token。</p>
+<p><img src="assets/1576152042243.png" alt="1576152042243"></p>
+<p><img src="assets/1576152034701.png" alt="1576152034701"></p>
+<p>再携带token访问资源</p>
+<p><img src="assets/1576152087641.png" alt="1576152087641"></p>
 
       
 
@@ -383,7 +413,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Oauth2-简介"><span class="toc-number">1.</span> <span class="toc-text">1.Oauth2 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-OAuth2-相关名词解释"><span class="toc-number">2.</span> <span class="toc-text">2.OAuth2 相关名词解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-四种授权模式"><span class="toc-number">3.</span> <span class="toc-text">3.四种授权模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-两种常用的授权模式"><span class="toc-number">4.</span> <span class="toc-text">4.两种常用的授权模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-授权码模式"><span class="toc-number">4.1.</span> <span class="toc-text">4.1.授权码模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-密码模式"><span class="toc-number">4.2.</span> <span class="toc-text">4.2.密码模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Oauth2的使用"><span class="toc-number">5.</span> <span class="toc-text">5.Oauth2的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-创建oauth2-server模块"><span class="toc-number">5.1.</span> <span class="toc-text">5.1.创建oauth2-server模块</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Oauth2-简介"><span class="toc-number">1.</span> <span class="toc-text">1.Oauth2 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-OAuth2-相关名词解释"><span class="toc-number">2.</span> <span class="toc-text">2.OAuth2 相关名词解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-四种授权模式"><span class="toc-number">3.</span> <span class="toc-text">3.四种授权模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-两种常用的授权模式"><span class="toc-number">4.</span> <span class="toc-text">4.两种常用的授权模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-授权码模式"><span class="toc-number">4.1.</span> <span class="toc-text">4.1.授权码模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-密码模式"><span class="toc-number">4.2.</span> <span class="toc-text">4.2.密码模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Oauth2的使用"><span class="toc-number">5.</span> <span class="toc-text">5.Oauth2的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-创建oauth2-server模块"><span class="toc-number">5.1.</span> <span class="toc-text">5.1.创建oauth2-server模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-测试"><span class="toc-number">6.</span> <span class="toc-text">6.测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-授权码测试"><span class="toc-number">6.1.</span> <span class="toc-text">6.1.授权码测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-密码模式测试"><span class="toc-number">6.2.</span> <span class="toc-text">6.2.密码模式测试</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
