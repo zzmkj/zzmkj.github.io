@@ -6,14 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/12 | Z_blog</title>
+  <title>Oauth2实现单点登录 | Z_blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Z_blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2019&#x2F;12&#x2F;index.html">
+  <meta name="description" content="Spring Cloud Security 为构建安全的SpringBoot应用提供了一系列解决方案，结合Oauth2可以实现单点登录功能  1.单点登录介绍单点登录（Single Sign On）指的是当有多个系统需要登录时，用户只需登录一个系统，就可以访问其他需要登录的系统而无需登录。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oauth2实现单点登录">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;26&#x2F;Oauth2%E5%AE%9E%E7%8E%B0%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95&#x2F;index.html">
 <meta property="og:site_name" content="Z_blog">
+<meta property="og:description" content="Spring Cloud Security 为构建安全的SpringBoot应用提供了一系列解决方案，结合Oauth2可以实现单点登录功能  1.单点登录介绍单点登录（Single Sign On）指的是当有多个系统需要登录时，用户只需登录一个系统，就可以访问其他需要登录的系统而无需登录。">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577341345934.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577341359800.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577341297194.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577341619612.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577341696719.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577341744105.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577341803546.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577344181833.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577344054503.png">
+<meta property="og:updated_time" content="2019-12-26T07:13:09.795Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1577341345934.png">
   
     <link rel="alternative" href="/atom.xml" title="Z_blog" type="application/atom+xml">
   
@@ -145,36 +159,146 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Oauth2实现单点登录" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Oauth2实现单点登录
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/26/Oauth2%E5%AE%9E%E7%8E%B0%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" class="archive-article-date">
+
+        
+        <a href="/2019/12/26/Oauth2%E5%AE%9E%E7%8E%B0%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" class="archive-article-date">
   	<time datetime="2019-12-26T06:07:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-26</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/26/Oauth2%E5%AE%9E%E7%8E%B0%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/">Oauth2实现单点登录</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Spring Cloud Security 为构建安全的SpringBoot应用提供了一系列解决方案，结合Oauth2可以实现单点登录功能</p>
+</blockquote>
+<h2 id="1-单点登录介绍"><a href="#1-单点登录介绍" class="headerlink" title="1.单点登录介绍"></a>1.单点登录介绍</h2><p>单点登录（Single Sign On）指的是当有多个系统需要登录时，用户只需登录一个系统，就可以访问其他需要登录的系统而无需登录。</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h2 id="2-创建oauth-client模块"><a href="#2-创建oauth-client模块" class="headerlink" title="2.创建oauth-client模块"></a>2.创建oauth-client模块</h2><blockquote>
+<p>这里我们创建一个oauth-client服务作为需要登录的客户端服务，使用</p>
+<p>中的oauth2-jwt-server服务作为认证服务，当我们在oauth-jwt服务上登录以后，就可以直接访问oauth-client需要登录的接口，来演示下单点登录功能。</p>
+</blockquote>
+<ul>
+<li>在pom.xml中添加相关依赖：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.geek<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>Demo project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">spring-cloud.version</span>&gt;</span>Hoxton.SR1<span class="tag">&lt;/<span class="name">spring-cloud.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-oauth2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-lang3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-cloud.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在application.properties中进行配置：</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9000</span></span><br><span class="line"><span class="comment">#防止Cookie冲突，冲突会导致登录验证不通过</span></span><br><span class="line"><span class="meta">server.servlet.session.cookie.name</span>=<span class="string">OAUTH2-CLIENT-SESSIONID</span></span><br><span class="line"><span class="meta">oauth2-server-url</span>=<span class="string">http://localhost:9100</span></span><br><span class="line"><span class="meta">spring.application.name</span>=<span class="string">oauth-client</span></span><br><span class="line"><span class="meta">security.oauth2.client.client-id</span>=<span class="string">admin</span></span><br><span class="line"><span class="meta">security.oauth2.client.client-secret</span>=<span class="string">qq123456</span></span><br><span class="line"><span class="meta">security.oauth2.client.user-authorization-uri</span>=<span class="string">$&#123;oauth2-server-url&#125;/oauth/authorize</span></span><br><span class="line"><span class="meta">security.oauth2.client.access-token-uri</span>=<span class="string">$&#123;oauth2-server-url&#125;/oauth/token</span></span><br><span class="line"><span class="meta">security.oauth2.resource.jwt.key-uri</span>=<span class="string">$&#123;oauth2-server-url&#125;/oauth/token_key</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在启动类上添加@EnableOAuth2Sso注解来启用单点登录功能：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableOAuth</span>2Sso</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OauthClientApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(OauthClientApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加接口用于获取当前登录用户信息：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserController</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 获取用户信息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/26 11:20</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/getCurrentUser"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getCurrentUser</span><span class="params">(Authentication authentication)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> authentication;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-修改认证服务器配置"><a href="#3-修改认证服务器配置" class="headerlink" title="3.修改认证服务器配置"></a>3.修改认证服务器配置</h2><p>修改oauth-jwt模块中的AuthorizationServerConfig类，将绑定的跳转路径修改为<a href="http://localhost:9000/login，**并添加获取秘钥时的身份认证**。" target="_blank" rel="noopener">http://localhost:9000/login，**并添加获取秘钥时的身份认证**。</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> AuthorizationServerConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 认证服务器配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/12 17:35</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthorizationServerConfig</span> <span class="keyword">extends</span> <span class="title">AuthorizationServerConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//以上省略代码....</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(ClientDetailsServiceConfigurer clients)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        clients.inMemory()</span><br><span class="line">                .withClient(<span class="string">"admin"</span>) <span class="comment">//配置client_id</span></span><br><span class="line">                .secret(passwordEncoder.encode(<span class="string">"qq123456"</span>)) <span class="comment">//配置client-secret</span></span><br><span class="line">                .accessTokenValiditySeconds(<span class="number">3600</span>) <span class="comment">//配置访问token的有效期</span></span><br><span class="line">                .refreshTokenValiditySeconds(<span class="number">3600</span> * <span class="number">6</span>) <span class="comment">//配置刷新token的有效期</span></span><br><span class="line"><span class="comment">//                .redirectUris("http://www.baidu.com") //用于授权成功后跳转</span></span><br><span class="line">                .redirectUris(<span class="string">"http://localhost:9000/login"</span>) <span class="comment">//单点登录时配置</span></span><br><span class="line">                .scopes(<span class="string">"all"</span>) <span class="comment">//申请的权限范围</span></span><br><span class="line">                .authorizedGrantTypes(<span class="string">"authorization_code"</span>, <span class="string">"password"</span>, <span class="string">"refresh_token"</span>); <span class="comment">//配置grant_type,表示授权类型</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthorizationServerSecurityConfigurer security)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        security.tokenKeyAccess(<span class="string">"isAuthenticated()"</span>); <span class="comment">//获取密钥需要身份认证，使用单点登录时必须配置！！，否则不配置的话，客户端启动会报403没有权限访问错误</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-网页单点登录演示"><a href="#4-网页单点登录演示" class="headerlink" title="4.网页单点登录演示"></a>4.网页单点登录演示</h2><ul>
+<li>启动oauth-jwt服务和oauth-client服务；</li>
+<li>访问客户端需要授权的接口<a href="http://localhost:9000/user/getCurrentUser会跳转到授权服务的登录界面；" target="_blank" rel="noopener">http://localhost:9000/user/getCurrentUser会跳转到授权服务的登录界面；</a></li>
+</ul>
+<p><img src="/assets/1577341345934.png" alt="1577341345934"></p>
+<ul>
+<li>进行登录操作后跳转到授权页面；</li>
+</ul>
+<p><img src="/assets/1577341359800.png" alt="1577341359800"></p>
+<ul>
+<li>授权后会跳转到原来需要权限的接口地址，展示登录用户信息；</li>
+</ul>
+<p><img src="/assets/1577341297194.png" alt="1577341297194"></p>
+<ul>
+<li>如果需要跳过授权操作进行自动授权可以添加<code>autoApprove(true)</code>配置：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> AuthorizationServerConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 认证服务器配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/12 17:35</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthorizationServerConfig</span> <span class="keyword">extends</span> <span class="title">AuthorizationServerConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//以上省略代码....</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(ClientDetailsServiceConfigurer clients)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        clients.inMemory()</span><br><span class="line">                .withClient(<span class="string">"admin"</span>) <span class="comment">//配置client_id</span></span><br><span class="line">                .secret(passwordEncoder.encode(<span class="string">"qq123456"</span>)) <span class="comment">//配置client-secret</span></span><br><span class="line">                .accessTokenValiditySeconds(<span class="number">3600</span>) <span class="comment">//配置访问token的有效期</span></span><br><span class="line">                .refreshTokenValiditySeconds(<span class="number">3600</span> * <span class="number">6</span>) <span class="comment">//配置刷新token的有效期</span></span><br><span class="line"><span class="comment">//                .redirectUris("http://www.baidu.com") //用于授权成功后跳转</span></span><br><span class="line">                .redirectUris(<span class="string">"http://localhost:9000/login"</span>) <span class="comment">//单点登录时配置</span></span><br><span class="line">                .autoApprove(<span class="keyword">true</span>) <span class="comment">//自动授权配置</span></span><br><span class="line">                .scopes(<span class="string">"all"</span>) <span class="comment">//申请的权限范围</span></span><br><span class="line">                .authorizedGrantTypes(<span class="string">"authorization_code"</span>, <span class="string">"password"</span>, <span class="string">"refresh_token"</span>); <span class="comment">//配置grant_type,表示授权类型</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-调用接口单点登录演示"><a href="#5-调用接口单点登录演示" class="headerlink" title="5.调用接口单点登录演示"></a>5.调用接口单点登录演示</h2><blockquote>
+<p>这里我们使用Postman来演示下如何使用正确的方式调用需要登录的客户端接口。</p>
+</blockquote>
+<ul>
+<li>访问客户端需要登录的接口：<a href="http://localhost:9000/user/getCurrentUser" target="_blank" rel="noopener">http://localhost:9000/user/getCurrentUser</a></li>
+<li>使用Oauth2认证方式获取访问令牌：</li>
+</ul>
+<p><img src="/assets/1577341619612.png" alt="1577341619612"></p>
+<ul>
+<li>输入获取访问令牌的相关信息，点击请求令牌：</li>
+</ul>
+<p><img src="/assets/1577341696719.png" alt="1577341696719"></p>
+<p>此时会跳转到认证服务器进行登录操作：</p>
+<p><img src="/assets/1577341744105.png" alt="1577341744105"></p>
+<p>登录成功后使用获取到的令牌：</p>
+<p><img src="/assets/1577341803546.png" alt="1577341803546"></p>
+<p>最后请求接口可以获取到如下信息：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"authorities"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"authority"</span>: <span class="string">"admin"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"details"</span>: &#123;</span><br><span class="line">        <span class="attr">"remoteAddress"</span>: <span class="string">"0:0:0:0:0:0:0:1"</span>,</span><br><span class="line">        <span class="attr">"sessionId"</span>: <span class="string">"1F08B9AA95EA9A5970E224B785FE783C"</span>,</span><br><span class="line">        <span class="attr">"tokenValue"</span>: <span class="string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ6em0iLCJzY29wZSI6WyJhbGwiXSwiZXhwIjoxNTc3MzQ1NTg2LCJhdXRob3JpdGllcyI6WyJhZG1pbiJdLCJqdGkiOiI4YTQwZjMxYS0zYmQ4LTQzMDMtOWEwMC0wODBhZmM2M2E5NTEiLCJjbGllbnRfaWQiOiJhZG1pbiIsImVuaGFuY2UiOiJlbmhhbmNlIGluZm8ifQ.6pmXyRMjHEssEyFGHknBTOEbrki5TN4SvtmabQJsplU"</span>,</span><br><span class="line">        <span class="attr">"tokenType"</span>: <span class="string">"bearer"</span>,</span><br><span class="line">        <span class="attr">"decodedDetails"</span>: <span class="literal">null</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"authenticated"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"userAuthentication"</span>: &#123;</span><br><span class="line">        <span class="attr">"authorities"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"authority"</span>: <span class="string">"admin"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"details"</span>: <span class="literal">null</span>,</span><br><span class="line">        <span class="attr">"authenticated"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"principal"</span>: <span class="string">"zzm"</span>,</span><br><span class="line">        <span class="attr">"credentials"</span>: <span class="string">"N/A"</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"zzm"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"credentials"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="attr">"principal"</span>: <span class="string">"zzm"</span>,</span><br><span class="line">    <span class="attr">"clientOnly"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"oauth2Request"</span>: &#123;</span><br><span class="line">        <span class="attr">"clientId"</span>: <span class="string">"admin"</span>,</span><br><span class="line">        <span class="attr">"scope"</span>: [</span><br><span class="line">            <span class="string">"all"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"requestParameters"</span>: &#123;</span><br><span class="line">            <span class="attr">"client_id"</span>: <span class="string">"admin"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"resourceIds"</span>: [],</span><br><span class="line">        <span class="attr">"authorities"</span>: [],</span><br><span class="line">        <span class="attr">"approved"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"refresh"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">"redirectUri"</span>: <span class="literal">null</span>,</span><br><span class="line">        <span class="attr">"responseTypes"</span>: [],</span><br><span class="line">        <span class="attr">"extensions"</span>: &#123;&#125;,</span><br><span class="line">        <span class="attr">"grantType"</span>: <span class="literal">null</span>,</span><br><span class="line">        <span class="attr">"refreshTokenRequest"</span>: <span class="literal">null</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"zzm"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-oauth-client添加权限校验"><a href="#6-oauth-client添加权限校验" class="headerlink" title="6.oauth-client添加权限校验"></a>6.oauth-client添加权限校验</h2><p>添加配置开启基于方法的权限校验：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> SecurityConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 在接口上配置权限时使用</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/26 15:02</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableGlobalMethodSecurity</span>(prePostEnabled = <span class="keyword">true</span>)</span><br><span class="line"><span class="meta">@Order</span>(<span class="number">101</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在UserController中添加需要admin权限的接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserController</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 获取用户信息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/26 11:20</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//省略代码...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@PreAuthorize</span>(<span class="string">"hasAuthority('admin')"</span>)</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/auth/admin"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">adminAuth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"has admin auth!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问需要admin权限的接口：<a href="http://localhost:9000/user/auth/admin" target="_blank" rel="noopener">http://localhost:9000/user/auth/admin</a></p>
+<p><img src="/assets/1577344181833.png" alt="1577344181833"></p>
+<p>使用没有<code>admin</code>权限的帐号，比如<code>zhangsan:123456</code>获取令牌后访问该接口，会发现没有权限访问。</p>
+<p><img src="/assets/1577344054503.png" alt="1577344054503"></p>
+<h2 id="7-使用到的模块"><a href="#7-使用到的模块" class="headerlink" title="7.使用到的模块"></a>7.使用到的模块</h2><blockquote>
+<p>spring-demo<br>├── oauth-jwt <em>– 使用jwt的oauth2认证测试服务</em><br>└── oauth-client <em>– 单点登录的oauth2客户端服务</em></p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -186,316 +310,129 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/26/Oauth2%E5%AE%9E%E7%8E%B0%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/16/Oauth2%E7%BB%93%E5%90%88JWT/" class="archive-article-date">
-  	<time datetime="2019-12-16T02:20:19.925Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-16</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/16/Oauth2%E7%BB%93%E5%90%88JWT/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Oauth2结合JWT</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/16/Oauth2%E7%BB%93%E5%90%88JWT/">Oauth2结合JWT</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-单点登录介绍"><span class="toc-number">1.</span> <span class="toc-text">1.单点登录介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-创建oauth-client模块"><span class="toc-number">2.</span> <span class="toc-text">2.创建oauth-client模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-修改认证服务器配置"><span class="toc-number">3.</span> <span class="toc-text">3.修改认证服务器配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-网页单点登录演示"><span class="toc-number">4.</span> <span class="toc-text">4.网页单点登录演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-调用接口单点登录演示"><span class="toc-number">5.</span> <span class="toc-text">5.调用接口单点登录演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-oauth-client添加权限校验"><span class="toc-number">6.</span> <span class="toc-text">6.oauth-client添加权限校验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-使用到的模块"><span class="toc-number">7.</span> <span class="toc-text">7.使用到的模块</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/12/Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/" class="archive-article-date">
-  	<time datetime="2019-12-12T09:05:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-12</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/12/Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/">Oauth2使用入门</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/12/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2019-12-12T05:36:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/12/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">Java设计模式之原型模式</a>
-    </h1>
+  <div id="SOHUCS" sid="Oauth2实现单点登录" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/09/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2019-12-09T10:04:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/09/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">Java设计模式之单例模式</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/05/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-  	<time datetime="2019-12-05T04:44:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/05/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%AE%80%E4%BB%8B/">Java设计模式之简介</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/04/%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E7%BC%96%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2019-12-04T03:00:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/04/%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E7%BC%96%E7%A8%8B/">如何高效学习编程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">study</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/03/Linux-mariadb%E5%AE%89%E8%A3%85/" class="archive-article-date">
-  	<time datetime="2019-12-03T08:49:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/03/Linux-mariadb%E5%AE%89%E8%A3%85/">Linux_mariadb安装</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mariadb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/02/Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/" class="archive-article-date">
-  	<time datetime="2019-12-02T06:21:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/02/Mysql%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/">Mysql添加用户、删除用户与授权</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -518,8 +455,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
