@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>IOC与DI | Z_blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.什么是IOCIoC(Inversion of Control),即控制反转，不是什么技术，是面向对象编程中的一种编程思想，可以用来降低代码之间的耦合度。 在JAVA中，当我们需要使用一个对象的时候，传统的方式是 1Long x1 = new Long();  而IOC意味着将你设计好的对象交给容器控制，而不是在你的对象内部直接控制。举个通俗易懂的例子，网约车出现以前我们是如何叫车的？这能站在路">
+  <meta name="description" content="1.什么是IOCIoC(Inversion of Control),即控制反转，不是什么技术，是面向对象编程中的一种编程思想，可以用来降低代码之间的耦合度。">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IOC与DI">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;29&#x2F;IOC%E4%B8%8EDI&#x2F;index.html">
 <meta property="og:site_name" content="Z_blog">
-<meta property="og:description" content="1.什么是IOCIoC(Inversion of Control),即控制反转，不是什么技术，是面向对象编程中的一种编程思想，可以用来降低代码之间的耦合度。 在JAVA中，当我们需要使用一个对象的时候，传统的方式是 1Long x1 = new Long();  而IOC意味着将你设计好的对象交给容器控制，而不是在你的对象内部直接控制。举个通俗易懂的例子，网约车出现以前我们是如何叫车的？这能站在路">
+<meta property="og:description" content="1.什么是IOCIoC(Inversion of Control),即控制反转，不是什么技术，是面向对象编程中的一种编程思想，可以用来降低代码之间的耦合度。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-30T04:50:08.942Z">
+<meta property="og:updated_time" content="2019-12-30T04:55:26.273Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Z_blog" type="application/atom+xml">
@@ -169,7 +169,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-什么是IOC"><a href="#1-什么是IOC" class="headerlink" title="1.什么是IOC"></a>1.什么是IOC</h2><p><strong>IoC(Inversion of Control),即控制反转，不是什么技术，是面向对象编程中的一种编程思想，可以用来降低代码之间的耦合度。</strong> 在JAVA中，当我们需要使用一个对象的时候，传统的方式是</p>
+        <h2 id="1-什么是IOC"><a href="#1-什么是IOC" class="headerlink" title="1.什么是IOC"></a>1.什么是IOC</h2><p><strong>IoC(Inversion of Control),即控制反转，不是什么技术，是面向对象编程中的一种编程思想，可以用来降低代码之间的耦合度。</strong></p>
+<a id="more"></a>
+
+<p> 在JAVA中，当我们需要使用一个对象的时候，传统的方式是</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Long x1 = <span class="keyword">new</span> Long();</span><br></pre></td></tr></table></figure>
 
 <p>而IOC意味着将你设计好的对象交给容器控制，而不是在你的对象内部直接控制。<br>举个通俗易懂的例子，网约车出现以前我们是如何叫车的？这能站在路边，招手，叫出租车。还要考虑是否在高峰期，你站的路段会不会有出租车经过，这个过程是麻烦的。传统的程序开发也是如此，在一个对象中，如果想要使用另外一个对象，就必须得到它，自己new一个，有些对象使用完还要将其销毁，比如Connection等。对象与其他接口或类耦合度高。</p>
