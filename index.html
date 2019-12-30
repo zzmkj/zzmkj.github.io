@@ -147,6 +147,106 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-IOC与DI" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/29/IOC%E4%B8%8EDI/">IOC与DI</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/29/IOC%E4%B8%8EDI/" class="archive-article-date">
+  	<time datetime="2019-12-29T11:49:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-什么是IOC"><a href="#1-什么是IOC" class="headerlink" title="1.什么是IOC"></a>1.什么是IOC</h2><p><strong>IoC(Inversion of Control),即控制反转，不是什么技术，是面向对象编程中的一种编程思想，可以用来降低代码之间的耦合度。</strong> 在JAVA中，当我们需要使用一个对象的时候，传统的方式是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Long x1 = <span class="keyword">new</span> Long();</span><br></pre></td></tr></table></figure>
+
+<p>而IOC意味着将你设计好的对象交给容器控制，而不是在你的对象内部直接控制。<br>举个通俗易懂的例子，网约车出现以前我们是如何叫车的？这能站在路边，招手，叫出租车。还要考虑是否在高峰期，你站的路段会不会有出租车经过，这个过程是麻烦的。传统的程序开发也是如此，在一个对象中，如果想要使用另外一个对象，就必须得到它，自己new一个，有些对象使用完还要将其销毁，比如Connection等。对象与其他接口或类耦合度高。</p>
+<p>此时，滴滴这样的网约车平台出现了，所有想载客的私家车在滴滴登记服务类型，身份信息。此时你再想叫车，只需要坐在家里打开APP输入目的地，选择服务类型，滴滴自动安排一个符合要求的车到你面前，为你服务，方便，完美！ IOC容器就好比是滴滴，所有的类都会在IoC容器中登记，告诉IoC容器你是个什么东西，你需要什么东西，然后IoC容器会在程序运行到适当的时候，把你需要的东西主动给你，同时也把你交给需要你的东西。</p>
+<p><strong>深入分析：</strong></p>
+<blockquote>
+<p><strong>谁控制谁，控制什么</strong>：IOC容器控制了外部资源获取，外部资源不仅指对象，还包括文件等。由IoC容器来控制对象的创建。<br><strong>哪些方面反转了，为什么是反转：</strong> 依赖对象的获取被反转了。由容器帮我们查找并注入依赖对象，对象只是被动的接受依赖对象，所以是反转。不同于传统的由我们自己在对象中去控制依赖对象的获取。</p>
+</blockquote>
+<h2 id="2-什么是DI"><a href="#2-什么是DI" class="headerlink" title="2.什么是DI"></a>2.什么是DI</h2><p><strong>DI(Dependency Injection),即依赖注入。由IOC容器决定依赖关系，在程序运行时由容器动态的全权负责组件的装配，</strong> 它会把符合依赖关系的对象注入到需要它的对象。也就是<strong>通过引入IOC容器，利用依赖关系注入的方式，实现对象之间的解耦。</strong></p>
+<p>DI其实是IoC的更具体描述。大师级人物<strong>Martin Folwer</strong>认为“Inversion of Control”这个概念比较模糊，于是在2004年给出了一个更能描述其特点的名字：“Dependency Injection”(“依赖注入”)。他的这个解释给出了IOC的具体实现方法：注入。就是由IOC容器在程序运行期间，动态地将某种依赖关系注入到对象中。<br>原文地址：<a href="https://www.martinfowler.com/articles/injection.html" target="_blank" rel="noopener">Inversion of Control Containers and the Dependency Injection pattern</a></p>
+<p>深入分析：</p>
+<blockquote>
+<p><strong>谁依赖于谁</strong>：应用程序依赖于IoC容器<br><strong>谁注入谁：</strong> IOC容器将应用程序所需的外部资源(常量、对象、文件等)注入到应用程序</p>
+</blockquote>
+<h2 id="3-IOC实现原理"><a href="#3-IOC实现原理" class="headerlink" title="3.IOC实现原理"></a>3.IOC实现原理</h2><p>JAVA不同于JS、Python、PHP等动态语言，动态语言允许在程序运行时改变程序结构或变量类型。动态语言修改即生效，而静态语言修改后需要先编译修改才会生效，然后再运行。不过JAVA有着一个动态相关机制：Reflection(<strong>反射机制</strong>)，我们可以利用这个机制实现运行时加载、探知、使用编译期间完全未知的classes，IoC也就是通过JAVA的这种机制实现的。</p>
+<p>我们可以把IOC容器看做是工厂模式的改良版，可以把IOC容器看作是一个工厂，这个工厂里要生产的对象都在配置文件中给出定义，然后利用编程语言的的反射机制，根据配置文件中给出的类名生成相应的对象。从实现来看，IOC是把以前在工厂方法里写死的对象生成代码，变成由配置文件来定义，也就是<strong>把工厂和对象生成这两者独立分隔开来，从而达到提高灵活性和可维护性的目的</strong> 。</p>
+<h2 id="4-IOC为我们带来哪些好处"><a href="#4-IOC为我们带来哪些好处" class="headerlink" title="4.IOC为我们带来哪些好处"></a>4.IOC为我们带来哪些好处</h2><p>IOC的控制方式就好比是USB外部设备，传统创建对象的方式就好比是内置硬盘，那么USB外部设备有哪些优势呢？</p>
+<ul>
+<li>USB外部设备在插入主机前与主机没有任何关系，无论两者中任何一方出现什么问题都不会影响另一方的运行。这种特性体现在编程思想中就是可维护性好，便于进行单元测试。代码中每一个组件都可以单独测试，互不影响。从而<strong>降低耦合度</strong>。</li>
+<li>USB设备与主机之间的无关性带来的另一个好处就是生产USB设备的厂商和生产电脑主机的厂商只需要遵守USB接口标准就可以了，不需要去了解对方的细节。这种特性体现在编程思想中就是每个团队的成员只需要关心自己要去实现的接口规范，不需要去关心其他人的工作进展，你的任务不用依赖于别人的组件可以单独测试。这样在大型项目中就很容易将一个大任务细分为一个个的小任务。从而<strong>提高团队间的分工协作能力，提高开发效率</strong>。</li>
+<li>同一个USB设备可以插接到任何支持USB的设备，USB设备可以反复利用。这种特性体现在编程思想中就是，我们可以把使用频率较高的代码段抽离成独立的组件，在项目的不同部分反复调用，这也是面向对象的基本特性。从而<strong>提高了代码的可复用性</strong>。</li>
+<li>同USB设备一样，组件具有热插拔特性。IOC将生成对象的方式转为外置方式，也就是在配置文件里定义对象的生成，这样，当我们更换一个实现子类只要修改配置文件就可以了，变得简单多了。从而使<strong>组件具有热插拨的特性</strong>。</li>
+</ul>
+<p>其实，反射技术很早就出现了，但一直没有被进一步利用，当时由反射生成对象比正常的生成对象方式至少要慢10倍，后来SUN公司对其进行了改良，速度已经相差不大了，大约是1-2倍的差距。相对于程序的灵活性和可维护性来说，这点效率上的损耗是微不足道的。</p>
+<p>参考文章：</p>
+<p><a href="https://blog.csdn.net/qq_42709262/article/details/81951402" target="_blank" rel="noopener">什么是IOC、DI</a><br><a href="https://www.iteye.com/blog/xinklabi-1872630" target="_blank" rel="noopener">深入理解IOC以及它的优缺点</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/29/IOC%E4%B8%8EDI/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Oauth2实现单点登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -856,92 +956,6 @@
 
 
   
-    <article id="post-RabbitMq指南" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/28/RabbitMq%E6%8C%87%E5%8D%97/">RabbitMq指南</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/28/RabbitMq%E6%8C%87%E5%8D%97/" class="archive-article-date">
-  	<time datetime="2019-11-28T04:38:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="0-Windows安装"><a href="#0-Windows安装" class="headerlink" title="0.Windows安装"></a>0.Windows安装</h2><ol>
-<li>安装Erland，通过官方下载页面<code>http://www.erlang.org/downloads</code>获取exe安装包，直接打开并完成安装。</li>
-<li>安装RabbitMQ，通过官方下载页面<code>https://www.rabbitmq.com/download.html</code>获取exe安装包。</li>
-<li>下载完成后，直接运行安装程序。</li>
-<li>RabbitMQ Server安装完成之后，会自动的注册为服务，并以默认配置启动起来。</li>
-<li>在浏览器输入IP地址:15672端口号，默认用户和密码都是guest</li>
-</ol>
-        
-          <a class="article-more-a" href="/2019/11/28/RabbitMq%E6%8C%87%E5%8D%97/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RabbitMq</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/28/RabbitMq%E6%8C%87%E5%8D%97/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1039,11 +1053,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
