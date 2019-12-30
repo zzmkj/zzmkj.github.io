@@ -17,10 +17,10 @@
 <meta property="og:description" content="Spring Cloud Security 为构建安全的SpringBoot应用提供了一系列解决方案，结合Oauth2还可以实现更多功能，比如使用JWT令牌存储信息，刷新令牌功能.  1. JWT简介 JWT是JSON WEB TOKEN的缩写，它是基于 RFC 7519 标准定义的一种可以安全传输的的JSON对象，由于使用了数字签名，所以是可信任和安全的。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E7%BB%93%E5%90%88JWT&#x2F;assets&#x2F;1576463140841.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E7%BB%93%E5%90%88JWT&#x2F;assets&#x2F;1576463468246.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1576463468246.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E7%BB%93%E5%90%88JWT&#x2F;assets&#x2F;1576464757799.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1576469039317.png">
-<meta property="og:updated_time" content="2019-12-30T04:58:05.085Z">
+<meta property="og:updated_time" content="2019-12-30T05:04:20.513Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E7%BB%93%E5%90%88JWT&#x2F;assets&#x2F;1576463140841.png">
   
@@ -225,7 +225,7 @@
 <p><a href="http://localhost:9100/oauth/token" target="_blank" rel="noopener">http://localhost:9100/oauth/token</a></p>
 </li>
 </ul>
-<p><img src="assets/1576463468246.png" alt="1576463468246"></p>
+<p><img src="/assets/1576463468246.png" alt="1576463468246"></p>
 <ul>
 <li><p>发现获取到的令牌已经变成了JWT令牌，将access_token拿到<a href="https://jwt.io/" target="_blank" rel="noopener">https://jwt.io/</a> 网站上去解析下可以获得其中内容。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"exp"</span>: <span class="number">1576466274</span>,</span><br><span class="line">  <span class="string">"user_name"</span>: <span class="string">"zzm"</span>,</span><br><span class="line">  <span class="string">"authorities"</span>: [</span><br><span class="line">    <span class="string">"admin"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"jti"</span>: <span class="string">"dafd7e5f-ff37-4506-a7cb-51cf81a617d1"</span>,</span><br><span class="line">  <span class="string">"client_id"</span>: <span class="string">"admin"</span>,</span><br><span class="line">  <span class="string">"scope"</span>: [</span><br><span class="line">    <span class="string">"all"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
