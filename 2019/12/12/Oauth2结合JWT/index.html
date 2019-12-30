@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="Z_blog">
 <meta property="og:description" content="Spring Cloud Security 为构建安全的SpringBoot应用提供了一系列解决方案，结合Oauth2还可以实现更多功能，比如使用JWT令牌存储信息，刷新令牌功能.  1. JWT简介 JWT是JSON WEB TOKEN的缩写，它是基于 RFC 7519 标准定义的一种可以安全传输的的JSON对象，由于使用了数字签名，所以是可信任和安全的。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E7%BB%93%E5%90%88JWT&#x2F;assets&#x2F;1576463140841.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1576463140841.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1576463468246.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E7%BB%93%E5%90%88JWT&#x2F;assets&#x2F;1576464757799.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1576464757799.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1576469039317.png">
-<meta property="og:updated_time" content="2019-12-30T05:04:20.513Z">
+<meta property="og:updated_time" content="2019-12-30T05:08:15.935Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Oauth2%E7%BB%93%E5%90%88JWT&#x2F;assets&#x2F;1576463140841.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;assets&#x2F;1576463140841.png">
   
     <link rel="alternative" href="/atom.xml" title="Z_blog" type="application/atom+xml">
   
@@ -203,7 +203,7 @@
 
 <ul>
 <li><p>可以在该网站上获得解析结果：<a href="https://jwt.io/" target="_blank" rel="noopener">https://jwt.io/</a></p>
-<p><img src="assets/1576463140841.png" alt="1576463140841"></p>
+<p><img src="/assets/1576463140841.png" alt="1576463140841"></p>
 </li>
 </ul>
 <h2 id="2-创建oauth-jwt模块"><a href="#2-创建oauth-jwt模块" class="headerlink" title="2.创建oauth-jwt模块"></a>2.创建oauth-jwt模块</h2><p>该模块只是对oauth-server模块的扩展，直接复制过来扩展下即可。</p>
@@ -276,7 +276,7 @@
 
 <p>将令牌放入<code>Authorization</code>头中，访问如下地址获取信息：</p>
 <p><a href="http://localhost:9100/user/getCurrentUser" target="_blank" rel="noopener">http://localhost:9100/user/getCurrentUser</a></p>
-<p><img src="assets/1576464757799.png" alt="1576464757799"></p>
+<p><img src="/assets/1576464757799.png" alt="1576464757799"></p>
 <h2 id="7-刷新令牌"><a href="#7-刷新令牌" class="headerlink" title="7.刷新令牌"></a>7.刷新令牌</h2><blockquote>
 <p>在Spring Cloud Security 中使用oauth2时，如果令牌失效了，可以使用刷新令牌通过refresh_token的授权模式再次获取access_token。</p>
 </blockquote>
