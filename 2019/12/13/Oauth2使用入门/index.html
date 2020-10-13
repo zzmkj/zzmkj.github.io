@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Oauth2使用入门 | Z_blog</title><meta name="keywords" content="Java"><meta name="author" content="ZZM"><meta name="copyright" content="ZZM"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="1.Oauth2 简介OAuth 2.0是用于授权的行业标准协议。OAuth 2.0为简化客户端开发提供了特定的授权流，包括Web应用、桌面应用、移动端应用等。 2.OAuth2 相关名词解释 Resource owner（资源拥有者）：拥有该资源的最终用户，他有访问资源的账号密码； Resource server（资源服务器）：拥有受保护资源的服务器，如果请求包含正确的访问令牌，可以访问资源；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oauth2使用入门">
+<meta property="og:url" content="http://yoursite.com/2019/12/13/Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Z_blog">
+<meta property="og:description" content="1.Oauth2 简介OAuth 2.0是用于授权的行业标准协议。OAuth 2.0为简化客户端开发提供了特定的授权流，包括Web应用、桌面应用、移动端应用等。 2.OAuth2 相关名词解释 Resource owner（资源拥有者）：拥有该资源的最终用户，他有访问资源的账号密码； Resource server（资源服务器）：拥有受保护资源的服务器，如果请求包含正确的访问令牌，可以访问资源；">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/CODE-COLOR-COVER.png">
+<meta property="article:published_time" content="2019-12-12T17:05:22.000Z">
+<meta property="article:modified_time" content="2019-12-12T12:05:02.553Z">
+<meta property="article:author" content="ZZM">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/CODE-COLOR-COVER.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/2019/12/13/Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: {"appId":"9PDOJFRXHT","apiKey":"6d9c5cdb7a10bcc95f2443d9c290496f","indexName":"test","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁体","msgToSimplifiedChinese":"简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2019-12-12 12:05:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Oauth2-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">1.Oauth2 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-OAuth2-%E7%9B%B8%E5%85%B3%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><span class="toc-number">2.</span> <span class="toc-text">2.OAuth2 相关名词解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">3.四种授权模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%B8%A4%E7%A7%8D%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">4.两种常用的授权模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%8E%88%E6%9D%83%E7%A0%81%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">4.1.授权码模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%AF%86%E7%A0%81%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.2.</span> <span class="toc-text">4.2.密码模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Oauth2%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">5.Oauth2的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%88%9B%E5%BB%BAoauth2-server%E6%A8%A1%E5%9D%97"><span class="toc-number">5.1.</span> <span class="toc-text">5.1.创建oauth2-server模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%B5%8B%E8%AF%95"><span class="toc-number">6.</span> <span class="toc-text">6.测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E6%8E%88%E6%9D%83%E7%A0%81%E6%B5%8B%E8%AF%95"><span class="toc-number">6.1.</span> <span class="toc-text">6.1.授权码测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E5%AF%86%E7%A0%81%E6%A8%A1%E5%BC%8F%E6%B5%8B%E8%AF%95"><span class="toc-number">6.2.</span> <span class="toc-text">6.2.密码模式测试</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/CODE-COLOR-COVER.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Z_blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Oauth2使用入门</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-12-12T17:05:22.000Z" title="发表于 2019-12-12 17:05:22">2019-12-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-12-12T12:05:02.553Z" title="更新于 2019-12-12 12:05:02">2019-12-12</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="1-Oauth2-简介"><a href="#1-Oauth2-简介" class="headerlink" title="1.Oauth2 简介"></a>1.Oauth2 简介</h2><p>OAuth 2.0是用于授权的行业标准协议。OAuth 2.0为简化客户端开发提供了特定的授权流，包括Web应用、桌面应用、移动端应用等。</p>
+<h2 id="2-OAuth2-相关名词解释"><a href="#2-OAuth2-相关名词解释" class="headerlink" title="2.OAuth2 相关名词解释"></a>2.OAuth2 相关名词解释</h2><ul>
+<li><strong>Resource owner（资源拥有者）：</strong>拥有该资源的最终用户，他有访问资源的账号密码；</li>
+<li><strong>Resource server（资源服务器）：</strong>拥有受保护资源的服务器，如果请求包含正确的访问令牌，可以访问资源；</li>
+<li><strong>Client（客户端）：</strong>访问资源的客户端，会使用访问令牌去获取资源服务器的资源，可以是浏览器、移动设备或者服务器；</li>
+<li><strong>Authorization server（认证服务器）：</strong>用于认证用户的服务器，如果客户端认证通过，发放访问资源服务器的令牌。</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="3-四种授权模式"><a href="#3-四种授权模式" class="headerlink" title="3.四种授权模式"></a>3.四种授权模式</h2><ul>
+<li><strong>Authorization Code（授权码模式）：</strong>正宗的OAuth2的授权模式，客户端先将用户导向认证服务器，登录后获取授权码，然后进行授权，最后根据授权码获取访问令牌；</li>
+<li><strong>Implicit（简化模式）：</strong>和授权码模式相比，取消了获取授权码的过程，直接获取访问令牌；</li>
+<li><strong>Resource Owner Password Credentials（密码模式）</strong>：客户端直接向用户获取用户名和密码，之后向认证服务器获取访问令牌；</li>
+<li><strong>Client Credentials（客户端模式）：</strong>客户端直接通过客户端认证（比如client_id和client_secret）从认证服务器获取访问令牌。</li>
+</ul>
+<h2 id="4-两种常用的授权模式"><a href="#4-两种常用的授权模式" class="headerlink" title="4.两种常用的授权模式"></a>4.两种常用的授权模式</h2><h3 id="4-1-授权码模式"><a href="#4-1-授权码模式" class="headerlink" title="4.1.授权码模式"></a>4.1.授权码模式</h3><p><img src="/assets/oauth1.jpg" alt="oauth1"></p>
+<blockquote>
+<ul>
+<li>(A)客户端将用户导向认证服务器；</li>
+<li>(B)用户在认证服务器进行登录并授权；</li>
+<li>(C)认证服务器返回授权码给客户端；</li>
+<li>(D)客户端通过授权码和跳转地址向认证服务器获取访问令牌；</li>
+<li>(E)认证服务器发放访问令牌（有需要带上刷新令牌）。</li>
+</ul>
+</blockquote>
+<h3 id="4-2-密码模式"><a href="#4-2-密码模式" class="headerlink" title="4.2.密码模式"></a>4.2.密码模式</h3><p><img src="/assets/oauth2.jpg" alt="oauth2"></p>
+<blockquote>
+<ul>
+<li>(A)客户端从用户获取用户名和密码；</li>
+<li>(B)客户端通过用户的用户名和密码访问认证服务器；</li>
+<li>(C)认证服务器返回访问令牌（有需要带上刷新令牌）。</li>
+</ul>
+</blockquote>
+<h2 id="5-Oauth2的使用"><a href="#5-Oauth2的使用" class="headerlink" title="5.Oauth2的使用"></a>5.Oauth2的使用</h2><h3 id="5-1-创建oauth2-server模块"><a href="#5-1-创建oauth2-server模块" class="headerlink" title="5.1.创建oauth2-server模块"></a>5.1.创建oauth2-server模块</h3><p>这里我们创建一个oauth2-server模块作为认证服务器来使用。</p>
+<ul>
+<li><p>在pom.xml中添加相关依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-oauth2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-lang3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在application.properties中进行配置：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9100</span></span><br><span class="line"><span class="meta">spring.application.name</span>=<span class="string">oauth2-server</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加UserService实现UserDetailsService接口，用于加载用户信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserService</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 加载用户信息和检验用户</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/12 17:27</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> <span class="keyword">implements</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;User&gt; userList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PasswordEncoder passwordEncoder;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String password = passwordEncoder.encode(<span class="string">&quot;123456&quot;</span>);</span><br><span class="line">        userList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        userList.add(<span class="keyword">new</span> User(<span class="string">&quot;zzm&quot;</span>, password, AuthorityUtils.commaSeparatedStringToAuthorityList(<span class="string">&quot;admin&quot;</span>)));</span><br><span class="line">        userList.add(<span class="keyword">new</span> User(<span class="string">&quot;lisi&quot;</span>, password, AuthorityUtils.commaSeparatedStringToAuthorityList(<span class="string">&quot;client&quot;</span>)));</span><br><span class="line">        userList.add(<span class="keyword">new</span> User(<span class="string">&quot;zhangsan&quot;</span>, password, AuthorityUtils.commaSeparatedStringToAuthorityList(<span class="string">&quot;client&quot;</span>)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</span><br><span class="line">        List&lt;User&gt; findUserList = userList.stream().filter(user -&gt; StringUtils.equals(user.getUsername(), username)).collect(Collectors.toList());</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(findUserList)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UsernameNotFoundException(<span class="string">&quot;用户名或者密码错误&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> findUserList.get(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>添加认证服务器配置，使用@EnableAuthorizationServer注解开启：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> AuthorizationServerConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 认证服务器配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/12 17:35</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthorizationServerConfig</span> <span class="keyword">extends</span> <span class="title">AuthorizationServerConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PasswordEncoder passwordEncoder;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AuthenticationManager authenticationManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(ClientDetailsServiceConfigurer clients)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        clients.inMemory()</span><br><span class="line">                .withClient(<span class="string">&quot;admin&quot;</span>) <span class="comment">//配置client_id</span></span><br><span class="line">                .secret(passwordEncoder.encode(<span class="string">&quot;qq123456&quot;</span>)) <span class="comment">//配置client-secret</span></span><br><span class="line">                .accessTokenValiditySeconds(<span class="number">3600</span>) <span class="comment">//配置访问token的有效期</span></span><br><span class="line">                .refreshTokenValiditySeconds(<span class="number">3600</span> * <span class="number">6</span>) <span class="comment">//配置刷新token的有效期</span></span><br><span class="line">                .redirectUris(<span class="string">&quot;http://www.baidu.com&quot;</span>) <span class="comment">//用于授权成功后跳转</span></span><br><span class="line">                .scopes(<span class="string">&quot;all&quot;</span>) <span class="comment">//申请的权限范围</span></span><br><span class="line">                .authorizedGrantTypes(<span class="string">&quot;authorization_code&quot;</span>, <span class="string">&quot;password&quot;</span>); <span class="comment">//配置grant_type,表示授权类型</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用密码模式需要配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> endpoints</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthorizationServerEndpointsConfigurer endpoints)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        endpoints.authenticationManager(authenticationManager)</span><br><span class="line">                .userDetailsService(userService);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>添加资源服务器配置，使用@EnableResourceServer注解开启：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ResourceServerConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 资源服务器配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/12 17:46</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableResourceServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResourceServerConfig</span> <span class="keyword">extends</span> <span class="title">ResourceServerConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .anyRequest()</span><br><span class="line">                .authenticated()</span><br><span class="line">                .and()</span><br><span class="line">                .requestMatchers()</span><br><span class="line">                .antMatchers(<span class="string">&quot;/user/**&quot;</span>); <span class="comment">//配置需要保护的资源路径</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>添加SpringSecurity配置，允许认证相关路径的访问及表单登录：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> SecurityConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> SpringSecurity配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/12 17:43</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PasswordEncoder <span class="title">passwordEncoder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BCryptPasswordEncoder();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> AuthenticationManager <span class="title">authenticationManager</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.authenticationManager();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http.csrf()</span><br><span class="line">                .disable()</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">&quot;/oauth/**&quot;</span>, <span class="string">&quot;/login/**&quot;</span>, <span class="string">&quot;/logout/**&quot;</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .anyRequest()</span><br><span class="line">                .authenticated()</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin()</span><br><span class="line">                .permitAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>添加需要登录的接口用于测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserController</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2019/12/12 17:49</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/getCurrentUser&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getCurrentUser</span><span class="params">(Authentication authentication)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> authentication.getPrincipal();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="6-测试"><a href="#6-测试" class="headerlink" title="6.测试"></a>6.测试</h2><h3 id="6-1-授权码测试"><a href="#6-1-授权码测试" class="headerlink" title="6.1.授权码测试"></a>6.1.授权码测试</h3><p>浏览器访问获取授权码地址：</p>
+<p><a target="_blank" rel="noopener" href="http://localhost:9100/oauth/authorize?response_type=code&amp;client_id=admin&amp;redirect_uri=http://www.baidu.com&amp;scope=all&amp;state=normal">http://localhost:9100/oauth/authorize?response_type=code&amp;client_id=admin&amp;redirect_uri=http://www.baidu.com&amp;scope=all&amp;state=normal</a></p>
+<p>输入用户名和密码</p>
+<p><img src="/assets/1576151623530.png" alt="1576151623530"></p>
+<p>同意认证请求</p>
+<p><img src="/assets/1576151670741.png" alt="1576151670741"></p>
+<p><img src="/assets/1576151690997.png" alt="1576151690997"></p>
+<p>同意后跳转到回调地址，同时参数上带上了授权码参数，code=HDPpCP</p>
+<p>拿到授权码再去请求认证服务器拿到token，这里使用postman进行测试。</p>
+<p>配置授权请求头信息：client_id、client_secret</p>
+<p><img src="/assets/1576151817331.png" alt="1576151817331"></p>
+<p>使用form表单进行提交</p>
+<p><img src="/assets/1576151872825.png" alt="1576151872825"></p>
+<p>然后再携带token去请求访问资源</p>
+<p><img src="/assets/1576151936804.png" alt="1576151936804"></p>
+<h3 id="6-2-密码模式测试"><a href="#6-2-密码模式测试" class="headerlink" title="6.2.密码模式测试"></a>6.2.密码模式测试</h3><p>配置授权请求头信息：client_id、client_secret，form表单提交用户名和密码到认证服务器上进行认证，认证成功后返回token。</p>
+<p><img src="/assets/1576152042243.png" alt="1576152042243"></p>
+<p><img src="/assets/1576152034701.png" alt="1576152034701"></p>
+<p>再携带token访问资源</p>
+<p><img src="/assets/1576152087641.png" alt="1576152087641"></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZZM</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2019/12/13/Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/">http://yoursite.com/2019/12/13/Oauth2%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">Z_blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/CODE-COLOR-COVER.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/12/26/Oauth2%E5%AE%9E%E7%8E%B0%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/compress/0dc60fb6fae0000f8a8b45e6f048bd96.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Oauth2实现单点登录</div></div></a></div><div class="next-post pull-right"><a href="/2019/12/12/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/CODE-COLOR-COVER.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java设计模式之原型模式</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/12/30/IOC与DI/" title="IOC与DI"><img class="cover" src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/compress/900447.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-29</div><div class="title">IOC与DI</div></div></a></div><div><a href="/2019/12/10/Java设计模式之单例模式/" title="Java设计模式之单例模式"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-09</div><div class="title">Java设计模式之单例模式</div></div></a></div><div><a href="/2019/12/12/Java设计模式之原型模式/" title="Java设计模式之原型模式"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/CODE-COLOR-COVER.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-12</div><div class="title">Java设计模式之原型模式</div></div></a></div><div><a href="/2019/12/05/Java设计模式之简介/" title="Java设计模式之简介"><img class="cover" src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/compress/motorcycle-1690452_1920.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-05</div><div class="title">Java设计模式之简介</div></div></a></div><div><a href="/2019/11/28/Linux-JDK安装/" title="Linux JDK安装"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/CODE-COLOR-COVER.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-27</div><div class="title">Linux JDK安装</div></div></a></div><div><a href="/2019/12/26/Oauth2实现单点登录/" title="Oauth2实现单点登录"><img class="cover" src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/compress/0dc60fb6fae0000f8a8b45e6f048bd96.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-26</div><div class="title">Oauth2实现单点登录</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018-2020 - 2020 By ZZM</div><div class="framework-info"></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="http://lweishi.com/">blog</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://lweishi.com"><img class="icp-icon" src="/img/icp.png"/><span>粤ICP备10040994号</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const initData = {
+      el: '#vcomment',
+      appId: 'Jwv9qyFO80YNKdilEQjzJxDo-gzGzoHsz',
+      appKey: 'XBVV4qC4lby4nV1R9SbU8KhS',
+      placeholder: '记得留下你的昵称和邮箱....可以快速收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="//code.tidio.co/jr1nhqzadylyvdhe7vorrruao1vsgpfl.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script></div></body></html>
