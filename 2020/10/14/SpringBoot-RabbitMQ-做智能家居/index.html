@@ -1,0 +1,373 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpringBoot+RabbitMQ 做智能家居 | Live For Code</title><meta name="keywords" content="RabbitMq,JAVA,SpringBoot"><meta name="author" content="ZZM"><meta name="copyright" content="ZZM"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="前一段有幸参与到一个智能家居项目的开发，由于之前都没有过这方面的开发经验，所以对智能硬件的开发模式和技术栈都颇为好奇。  智能可燃气体报警器  产品是一款可燃气体报警器，如果家中燃气泄露浓度到达一定阈值，报警器检测到并上传气体浓度值给后台，后台以电话、短信、微信等方式，提醒用户家中可能有气体泄漏。 用户还可能向报警器发一些关闭报警、调整音量的指令等。整体功能还是比较简单的，大致的逻辑如下图所示：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot+RabbitMQ 做智能家居">
+<meta property="og:url" content="http://yoursite.com/2020/10/14/SpringBoot-RabbitMQ-%E5%81%9A%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/index.html">
+<meta property="og:site_name" content="Live For Code">
+<meta property="og:description" content="前一段有幸参与到一个智能家居项目的开发，由于之前都没有过这方面的开发经验，所以对智能硬件的开发模式和技术栈都颇为好奇。  智能可燃气体报警器  产品是一款可燃气体报警器，如果家中燃气泄露浓度到达一定阈值，报警器检测到并上传气体浓度值给后台，后台以电话、短信、微信等方式，提醒用户家中可能有气体泄漏。 用户还可能向报警器发一些关闭报警、调整音量的指令等。整体功能还是比较简单的，大致的逻辑如下图所示：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/compress/0dc60fb6fae0000f8a8b45e6f048bd96.jpg">
+<meta property="article:published_time" content="2020-10-14T13:37:07.000Z">
+<meta property="article:modified_time" content="2020-10-14T06:18:57.958Z">
+<meta property="article:author" content="ZZM">
+<meta property="article:tag" content="RabbitMq">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="SpringBoot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/compress/0dc60fb6fae0000f8a8b45e6f048bd96.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/2020/10/14/SpringBoot-RabbitMQ-%E5%81%9A%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: {"appId":"9PDOJFRXHT","apiKey":"6d9c5cdb7a10bcc95f2443d9c290496f","indexName":"test","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁体","msgToSimplifiedChinese":"简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-10-14 06:18:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">14</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF-MQTT%E5%8D%8F%E8%AE%AE%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">一、什么是 MQTT协议？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-MQTT%E5%8D%8F%E8%AE%AE%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">二、为什么要用 MQTT协议？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81MQTT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.</span> <span class="toc-text">三、MQTT协议介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MQTT%E6%95%B0%E6%8D%AE%E5%8C%85"><span class="toc-number">3.1.</span> <span class="toc-text">MQTT数据包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%9B%BA%E5%AE%9A%E5%A4%B4"><span class="toc-number">3.1.1.</span> <span class="toc-text">1、固定头</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%8F%AF%E5%8F%98%E5%A4%B4"><span class="toc-number">3.1.2.</span> <span class="toc-text">2、可变头</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%B6%88%E6%81%AF%E4%BD%93payload"><span class="toc-number">3.1.3.</span> <span class="toc-text">3、消息体payload</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%B4%A8%E9%87%8F%EF%BC%88QoS-%EF%BC%89"><span class="toc-number">3.2.</span> <span class="toc-text">消息质量（QoS ）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81Qos-0"><span class="toc-number">3.2.1.</span> <span class="toc-text">1、Qos 0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81Qos-1"><span class="toc-number">3.2.2.</span> <span class="toc-text">2、Qos 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81Qos-2"><span class="toc-number">3.2.3.</span> <span class="toc-text">3、Qos 2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LWT%EF%BC%88%E6%9C%80%E5%90%8E%E9%81%97%E5%98%B1%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">LWT（最后遗嘱）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81MQTT%E5%8D%8F%E8%AE%AE%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">4.</span> <span class="toc-text">四、MQTT协议应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">5.</span> <span class="toc-text">五、代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%90%AF%E7%94%A8-RabbitMq%E7%9A%84mqtt%E5%8D%8F%E8%AE%AE"><span class="toc-number">5.1.</span> <span class="toc-text">1、启用 RabbitMq的mqtt协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81mqtt-%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="toc-number">5.2.</span> <span class="toc-text">2、mqtt 客户端依赖包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81Mqtt%E5%9F%BA%E6%9C%AC%E6%B6%88%E6%81%AF%E9%85%8D%E7%BD%AE"><span class="toc-number">5.3.</span> <span class="toc-text">3、Mqtt基本消息配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E8%80%85"><span class="toc-number">5.4.</span> <span class="toc-text">4、消息发送者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E6%B6%88%E6%81%AF%E8%AE%A2%E9%98%85"><span class="toc-number">5.5.</span> <span class="toc-text">5、消息订阅</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81mqtt%E6%B6%88%E6%81%AF%E6%B5%8B%E8%AF%95%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">5.6.</span> <span class="toc-text">6、mqtt消息测试控制器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%B5%8B%E8%AF%95%E6%B6%88%E6%81%AF"><span class="toc-number">6.</span> <span class="toc-text">六、测试消息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%B5%8B%E8%AF%95%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81"><span class="toc-number">6.1.</span> <span class="toc-text">1、测试消息发送</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%B5%8B%E8%AF%95%E6%B6%88%E6%81%AF%E8%AE%A2%E9%98%85"><span class="toc-number">6.2.</span> <span class="toc-text">2、测试消息订阅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%BA%94%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">7.</span> <span class="toc-text">七、应用注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#clientId-%E8%A6%81%E5%94%AF%E4%B8%80"><span class="toc-number">7.1.</span> <span class="toc-text">clientId 要唯一</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%85%B6%E4%BB%96%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">8.</span> <span class="toc-text">八、其他中间件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/compress/0dc60fb6fae0000f8a8b45e6f048bd96.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Live For Code</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">SpringBoot+RabbitMQ 做智能家居</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-14T13:37:07.000Z" title="发表于 2020-10-14 13:37:07">2020-10-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-14T06:18:57.958Z" title="更新于 2020-10-14 06:18:57">2020-10-14</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>前一段有幸参与到一个智能家居项目的开发，由于之前都没有过这方面的开发经验，所以对智能硬件的开发模式和技术栈都颇为好奇。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/0OzaL5uW2aN6o66sjW6995KR8TMicianPF57YWmEUOjFL6u1X3WRJtOgZkQ6gk5ibRb12qMxfCgUIJMdkicQckZibWg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<div style="text-align: center;color:#666;font-size: 13px">智能可燃气体报警器</div>
+
+<p>产品是一款可燃气体报警器，如果家中燃气泄露浓度到达一定阈值，报警器检测到并上传气体浓度值给后台，后台以电话、短信、微信等方式，提醒用户家中可能有气体泄漏。</p>
+<p>用户还可能向报警器发一些关闭报警、调整音量的指令等。整体功能还是比较简单的，大致的逻辑如下图所示：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aN6o66sjW6995KR8TMicianPF8gdfmKxLJIIgxoe7d1QiaibicqTfAa2uAvgAkQibXWYoQS79eP4jibRuibew/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>但当我真正的参与其中开发时，其实有一点小小的失望，因为在整个研发过程中，并没用到什么新的技术，还是常规的几种中间件，只不过换个用法而已。</p>
+<p>技术选型用<code>RabbitMq</code> 来做核心的组件，主要考虑到运维成本低，组内成员使用的熟练度比较高。</p>
+<hr>
+<p>下面和小伙伴分享一下如何用 <code>SpringBoot</code> + <code>RabbitMq</code> 搭建物联网（<code>IOT</code>）平台，其实智能硬件也没想象的那么高不可攀！</p>
+<p>很多小伙伴可能有点懵？<code>RabbitMq</code> 不是消息队列吗？<strong>怎么又能做智能硬件了</strong>？</p>
+<p>其实<code>RabbitMq</code>有两种协议，我们平时接触的消息队列是用的<code>AMQP</code>协议，而用在智能硬件中的是<code>MQTT</code>协议。</p>
+<h2 id="一、什么是-MQTT协议？"><a href="#一、什么是-MQTT协议？" class="headerlink" title="一、什么是 MQTT协议？"></a>一、什么是 MQTT协议？</h2><p><code>MQTT</code> 全称(Message Queue Telemetry Transport)：一种基于发布/订阅（<code>publish</code>/<code>subscribe</code>）模式的<code>轻量级</code>通讯协议，通过订阅相应的主题来获取消息，是物联网（<code>Internet of Thing</code>）中的一个标准传输协议。</p>
+<p>该协议将消息的发布者（<code>publisher</code>）与订阅者（<code>subscriber</code>）进行分离，因此可以在不可靠的网络环境中，为远程连接的设备提供可靠的消息服务，使用方式与传统的MQ有点类似。<img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aN6o66sjW6995KR8TMicianPFtWrslArMRwDQjCEFzofC1svj751UT4ySxc6R78eUyjsRUCTI6ZVleQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p><code>TCP</code>协议位于传输层，<code>MQTT</code> 协议位于应用层，<code>MQTT</code> 协议构建于<code>TCP/IP</code>协议上，也就是说只要支持<code>TCP/IP</code>协议栈的地方，都可以使用<code>MQTT</code>协议。</p>
+<h2 id="二、为什么要用-MQTT协议？"><a href="#二、为什么要用-MQTT协议？" class="headerlink" title="二、为什么要用 MQTT协议？"></a>二、为什么要用 MQTT协议？</h2><p><code>MQTT</code>协议为什么在物联网（IOT）中如此受偏爱？而不是其它协议，比如我们更为熟悉的 <code>HTTP</code>协议呢？</p>
+<ul>
+<li>首先<code>HTTP</code>协议它是一种同步协议，客户端请求后需要等待服务器的响应。而在物联网（IOT）环境中，设备会很受制于环境的影响，比如带宽低、网络延迟高、网络通信不稳定等，显然异步消息协议更为适合<code>IOT</code>应用程序。</li>
+<li><code>HTTP</code>是单向的，如果要获取消息客户端必须发起连接，而在物联网（IOT）应用程序中，设备或传感器往往都是客户端，这意味着它们无法被动地接收来自网络的命令。</li>
+<li>通常需要将一条命令或者消息，发送到网络上的所有设备上。<code>HTTP</code>要实现这样的功能不但很困难，而且成本极高。</li>
+</ul>
+<h2 id="三、MQTT协议介绍"><a href="#三、MQTT协议介绍" class="headerlink" title="三、MQTT协议介绍"></a>三、MQTT协议介绍</h2><p>前边说过<code>MQTT</code>是一种轻量级的协议，它只专注于发消息， 所以此协议的结构也非常简单。</p>
+<h3 id="MQTT数据包"><a href="#MQTT数据包" class="headerlink" title="MQTT数据包"></a>MQTT数据包</h3><p>在<code>MQTT</code>协议中，一个<code>MQTT</code>数据包由：<code>固定头</code>（Fixed header）、 <code>可变头</code>（Variable header）、 <code>消息体</code>（payload）三部分构成。</p>
+<ul>
+<li>固定头（Fixed header），所有数据包中都有固定头，包含数据包类型及数据包的分组标识。</li>
+<li>可变头（Variable header），部分数据包类型中有可变头。</li>
+<li>内容消息体（Payload），存在于部分数据包类，是客户端收到的具体消息内容。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aN6o66sjW6995KR8TMicianPFG5wepLQIzlCpCyBibicwz1NUBq4ouVFQHjmuxljUA29r1rkTYDGy62Ag/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h4 id="1、固定头"><a href="#1、固定头" class="headerlink" title="1、固定头"></a>1、固定头</h4><p>固定头部，使用两个字节，共16位：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aN6o66sjW6995KR8TMicianPFlvICltDycE7L8ZwJojO3XZJr1jkTwqicgNJVmyicdll4Cs5yt1Wicb1fw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p><strong>(4-7)位表示消息类型</strong>，使用4位二进制表示，可代表如下的16种消息类型，不过 0 和 15位置属于保留待用，所以共14种消息事件类型。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aN6o66sjW6995KR8TMicianPFBN1QVwbboIqoN2yiaibSbEa5AlficmFfouRbxPYMhiahTNic6e9Q3Lgxcpw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p><strong>DUP Flag（重试标识）</strong></p>
+<p>DUP Flag：保证消息可靠传输，消息是否已送达的标识。默认为0，只占用一个字节，表示第一次发送，当值为1时，表示当前消息先前已经被传送过。</p>
+<p><strong>QoS Level（消息质量等级）</strong></p>
+<p>QoS Level：消息的质量等级，后边会详细介绍</p>
+<p><strong>RETAIN（持久化）</strong></p>
+<ul>
+<li>值为<code>1</code>：表示发送的消息需要一直持久保存，而且不受服务器重启影响，不但要发送给当前的订阅者，且以后新加入的客户端订阅了此<code>Topic</code>，订阅者也会马上得到推送。<strong>注意</strong>：新加入的订阅者，只会取出最新的一个<code>RETAIN flag = 1</code>的消息推送。</li>
+<li>值为<code>0</code>：仅为当前订阅者推送此消息。</li>
+</ul>
+<p><strong>Remaining Length（剩余长度）</strong></p>
+<p>在当前消息中剩余的<code>byte</code>(字节)数，包含可变头部和消息体payload。</p>
+<h4 id="2、可变头"><a href="#2、可变头" class="headerlink" title="2、可变头"></a>2、可变头</h4><p>固定头部仅定义了消息类型和一些标志位，一些消息的元数据需要放入可变头部中。可变头部内容字节长度 + 消息体payload = 剩余长度。</p>
+<p>可变头部居于固定头部和payload中间，包含了协议名称，版本号，连接标志，用户授权，心跳时间等内容。</p>
+<p>可变头存在于这些类型的消息：PUBLISH (QoS &gt; 0)、PUBACK、PUBREC、PUBREL、PUBCOMP、SUBSCRIBE、SUBACK、UNSUBSCRIBE、UNSUBACK。</p>
+<h4 id="3、消息体payload"><a href="#3、消息体payload" class="headerlink" title="3、消息体payload"></a>3、消息体payload</h4><p>消息体payload只存在于<code>CONNECT</code>、<code>PUBLISH</code>、<code>SUBSCRIBE</code>、<code>SUBACK</code>、<code>UNSUBSCRIBE</code>这几种类型的消息：</p>
+<ul>
+<li><code>CONNECT</code>：包含客户端的<code>ClientId</code>、订阅的<code>Topic</code>、<code>Message</code>以及<code>用户名</code>和<code>密码</code>。</li>
+<li><code>PUBLISH</code>：向对应主题发送消息。</li>
+<li><code>SUBSCRIBE</code>：要订阅的主题以及<code>QoS</code>。</li>
+<li><code>SUBACK</code>：服务器对于<code>SUBSCRIBE</code>所申请的主题及<code>QoS</code>进行确认和回复。</li>
+<li><code>UNSUBSCRIBE</code>：取消要订阅的主题。</li>
+</ul>
+<h3 id="消息质量（QoS-）"><a href="#消息质量（QoS-）" class="headerlink" title="消息质量（QoS ）"></a>消息质量（QoS ）</h3><p><code>消息质量</code>（Quality of Service），即消息的发送质量，发布者（<code>publisher</code>）和订阅者（<code>subscriber</code>）都可以指定<code>qos</code>等级，有<code>QoS 0</code>、<code>QoS 1</code>、<code>QoS 2</code>三个等级。</p>
+<p>下边分别说明一下这三个等级的区别。</p>
+<h4 id="1、Qos-0"><a href="#1、Qos-0" class="headerlink" title="1、Qos 0"></a>1、Qos 0</h4><p>Qos 0：<code>At most once</code>（至多一次）只发送一次消息，不保证消息是否成功送达，没有确认机制，消息可能会丢失或重复。</p>
+<p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="img">图片源于网络，如有侵权联系删除</p>
+<h4 id="2、Qos-1"><a href="#2、Qos-1" class="headerlink" title="2、Qos 1"></a>2、Qos 1</h4><p>Qos 1：<code>At least once</code>（至少一次），相对于<code>QoS 0</code>而言<code>Qos 1</code>增加了<code>ack</code>确认机制，发送者（<code>publisher</code>）推送消息到MQTT代理（<code>broker</code>）时，两者自身都会先持久化消息，只有当<code>publisher</code> 或者 <code>Broker</code>分别收到 <code>PUBACK</code>确认时，才会删除自身持久化的消息，否则就会重发。</p>
+<p>但有个问题，尽管我们可以通过确认来保证一定收到客户端 或 服务器的<code>message</code>，可我们却不能保证仅收到一次<code>message</code>，也就是当客户端<code>publisher</code>没收到<code>Broker</code>的<code>puback</code>或者 <code>Broker</code>没有收到<code>subscriber</code>的<code>puback</code>，那么就会一直重发。</p>
+<p><strong>publisher -&gt; broker 大致流程：</strong></p>
+<ol>
+<li>publisher store msg -&gt; publish -&gt;broker （传递message）</li>
+<li>broker -&gt; puback -&gt; publisher delete msg （确认传递成功）</li>
+</ol>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/0OzaL5uW2aN6o66sjW6995KR8TMicianPFFDwEGNs9sNWgX4nAAdGRK0Suya9kZVUHOOpoONzUibWMzgzT7wN3iaicQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h4 id="3、Qos-2"><a href="#3、Qos-2" class="headerlink" title="3、Qos 2"></a>3、Qos 2</h4><p>Qos 2：<code>Exactly once</code>（只有一次），相对于<code>QoS 1</code>，<code>QoS 2</code>升级实现了仅接受一次<code>message</code>，<code>publisher</code> 和 <code>broker</code> 同样对消息进行持久化，其中 <code>publisher</code> 缓存了<code>message</code>和 对应的<code>msgID</code>，而 <code>broker</code> 缓存了 <code>msgID</code>，可以保证消息不重复，由于又增加了一个<code>confirm</code> 机制，整个流程变得复杂很多。</p>
+<p><strong>publisher -&gt; broker 大致流程：</strong></p>
+<ol>
+<li>publisher store msg -&gt; publish -&gt;broker -&gt; broker store</li>
+<li>msgID（传递message） broker -&gt; puberc （确认传递成功）</li>
+<li>publisher -&gt; pubrel -&gt;broker delete msgID （告诉broker删除msgID）</li>
+<li>broker -&gt; pubcomp -&gt; publisher delete msg （告诉publisher删除msg）</li>
+</ol>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/0OzaL5uW2aN6o66sjW6995KR8TMicianPFsYgsXN59ewzSPTneI0fFSJ6xOYibibPyJiaicpEic52nSB7bg3Rics619VZw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h3 id="LWT（最后遗嘱）"><a href="#LWT（最后遗嘱）" class="headerlink" title="LWT（最后遗嘱）"></a>LWT（最后遗嘱）</h3><p><code>LWT</code> 全称为 <code>Last Will and Testament</code>，其实遗嘱是一个由客户端预先定义好的主题和对应消息，附加在<code>CONNECT</code>的数据包中，包括<code>遗愿主题</code>、<code>遗愿 QoS</code>、<code>遗愿消息</code>等。</p>
+<p>当MQTT代理 <code>Broker</code> 检测到有客户端<code>client</code>非正常断开连接时，再由服务器主动发布此消息，然后相关的订阅者会收到消息。</p>
+<p><strong>举个栗子</strong>：聊天室中所有人都订阅一个叫<code>talk</code>的主题 ，但小富由于网络抖动突然断开了链接，这时聊天室中所有订阅主题 <code>talk</code>的客户端都会收到一个 “<code>小富离开聊天室</code>” 的遗愿消息。</p>
+<p>遗嘱的相关参数：</p>
+<ul>
+<li><code>Will Flag</code>：是否使用 LWT，1 开启</li>
+<li><code>Will Topic</code>：遗愿主题名，不可使用通配符</li>
+<li><code>Will Qos</code>：发布遗愿消息时使用的 QoS</li>
+<li><code>Will Retain</code>：遗愿消息的 Retain 标识</li>
+<li><code>Will Message</code>：遗愿消息内容</li>
+</ul>
+<p><strong>那客户端<code>Client</code> 有哪些场景是非正常断开连接呢？</strong></p>
+<ul>
+<li><code>Broker</code> 检测到底层的 I/O 异常；</li>
+<li>客户端 未能在心跳 <code>Keep Alive</code> 的间隔内和 <code>Broker</code> 进行消息交互；</li>
+<li>客户端 在关闭底层 <code>TCP</code> 连接前没有发送 <code>DISCONNECT</code> 数据包；</li>
+<li>客户端 发送错误格式的数据包到 <code>Broker</code>，导致关闭和客户端的连接等。</li>
+</ul>
+<p><strong>注意</strong>：当客户端通过发布 <code>DISCONNECT</code> 数据包断开连接时，属于正常断开连接，并不会触发 <code>LWT</code> 的机制，与此同时<code>Broker</code> 还会丢弃掉当前客户端在连接时指定的相关 <code>LWT</code> 参数。</p>
+<h2 id="四、MQTT协议应用场景"><a href="#四、MQTT协议应用场景" class="headerlink" title="四、MQTT协议应用场景"></a>四、MQTT协议应用场景</h2><p><code>MQTT</code>协议广泛应用于物联网、移动互联网、智能硬件、车联网、电力能源等领域。使用的场景也是非常非常多，下边列举一些：</p>
+<ul>
+<li>物联网M2M通信，物联网大数据采集</li>
+<li>Android消息推送，WEB消息推送</li>
+<li>移动即时消息，例如Facebook Messenger</li>
+<li>智能硬件、智能家具、智能电器</li>
+<li>车联网通信，电动车站桩采集</li>
+<li>智慧城市、远程医疗、远程教育</li>
+<li>电力、石油与能源等行业市场</li>
+</ul>
+<h2 id="五、代码实现"><a href="#五、代码实现" class="headerlink" title="五、代码实现"></a>五、代码实现</h2><p>具体 <code>RabbitMq</code> 的环境搭建就不赘述了，网上教程比较多，有条件的用服务器，没条件的像我搞个<code>Windows</code>版的也很快乐嘛。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/0OzaL5uW2aN6o66sjW6995KR8TMicianPF1U4CXibC7ftl1HV2vbK8p75SXnDHYUfmLztRYWGS4xtv3aDb6c8S5OQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h3 id="1、启用-RabbitMq的mqtt协议"><a href="#1、启用-RabbitMq的mqtt协议" class="headerlink" title="1、启用 RabbitMq的mqtt协议"></a>1、启用 RabbitMq的mqtt协议</h3><p>我们先开启 <code>rabbitmq</code> 的 <code>mqtt</code>协议，因为默认安装下是关闭的，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_mqtt</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、mqtt-客户端依赖包"><a href="#2、mqtt-客户端依赖包" class="headerlink" title="2、mqtt 客户端依赖包"></a>2、mqtt 客户端依赖包</h3><p>上一步中安装<code>rabbitmq</code>环境并开启 <code>mqtt</code>协议后，实际上<code>mqtt</code> 消息代理服务就搭建好了，接下来要做的就是实现客户端消息的推送和订阅。</p>
+<p>这里使用<code>spring-integration-mqtt</code>、<code>org.eclipse.paho.client.mqttv3</code>两个工具包实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--mqtt依赖包--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.integration&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-integration-mqtt&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.eclipse.paho&lt;&#x2F;groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;org.eclipse.paho.client.mqttv3&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、Mqtt基本消息配置"><a href="#3、Mqtt基本消息配置" class="headerlink" title="3、Mqtt基本消息配置"></a>3、Mqtt基本消息配置</h3><p>配置文件定义连接属性<code>application.yml</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">iot:</span><br><span class="line">  mqtt:</span><br><span class="line">    clientId: client-1</span><br><span class="line">    defaultTopic: mqtt_test_topic</span><br><span class="line">    serverClientId: server-1</span><br><span class="line">    servers: tcp:&#x2F;&#x2F;127.0.0.1:1883</span><br></pre></td></tr></table></figure>
+
+<p>创建读取配置文件属性类<code>MqttConfig</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> MqttConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> Mqtt基础信息配置类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2020/10/14 11:25</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@IntegrationComponentScan</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;iot.mqtt&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MqttConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 服务地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String servers;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 客户端id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String clientId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 服务端id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String serverClientId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 默认主题</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String defaultTopic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【注意】这里我没使用 <code>@EnableConfigurationProperties</code> 进行注册，使用 <code>@Component</code> 注册配置文件类，你也可以使用 <code>@EnableConfigurationProperties</code></p>
+<h3 id="4、消息发送者"><a href="#4、消息发送者" class="headerlink" title="4、消息发送者"></a>4、消息发送者</h3><p>消息的发送比较简单，主要是应用到<code>@ServiceActivator</code>注解，需要注意<code>messageHandler.setAsync</code>属性，如果设置成<code>false</code>，关闭异步模式发送消息时可能会阻塞。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> IotMqttProducerConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 配置消息发送者</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2020/10/14 11:22</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IotMqttProducerConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MqttConfig mqttConfig;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MqttPahoClientFactory <span class="title">mqttClientFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DefaultMqttPahoClientFactory factory = <span class="keyword">new</span> DefaultMqttPahoClientFactory();</span><br><span class="line">        MqttConnectOptions options = <span class="keyword">new</span> MqttConnectOptions();</span><br><span class="line">        String[] serverURIs = mqttConfig.getServers().split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">        options.setServerURIs(serverURIs);</span><br><span class="line">        factory.setConnectionOptions(options);</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MessageChannel <span class="title">mqttOutboundChannel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DirectChannel();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 需要注意messageHandler.setAsync属性，如果设置成false，关闭异步模式发送消息时可能会阻塞。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ServiceActivator(inputChannel = &quot;iotMqttInputChannel&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MessageHandler <span class="title">mqttOutbound</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MqttPahoMessageHandler messageHandler = <span class="keyword">new</span> MqttPahoMessageHandler(mqttConfig.getServerClientId(), mqttClientFactory());</span><br><span class="line">        messageHandler.setAsync(<span class="keyword">false</span>);</span><br><span class="line">        messageHandler.setDefaultTopic(mqttConfig.getDefaultTopic());</span><br><span class="line">        <span class="keyword">return</span> messageHandler;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>MQTT</code> 对外提供发送消息的<code>API</code>时，需要使用<code>@MessagingGateway</code> 注解，去提供一个消息网关代理，参数<code>defaultRequestChannel</code> 指定发送消息绑定的<code>channel</code>。</p>
+<p>可以实现三种<code>API</code>接口，<code>payload</code> 为发送的消息，<code>topic</code> 发送消息的主题，<code>qos</code> 消息质量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MessagingGateway(defaultRequestChannel = &quot;iotMqttInputChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IotMqttGateway</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向默认的 topic 发送消息</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendMessage2Mqtt</span><span class="params">(String payload)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 向指定的 topic 发送消息</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendMessage2Mqtt</span><span class="params">(String payload,<span class="meta">@Header(MqttHeaders.TOPIC)</span> String topic)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 向指定的 topic 发送消息，并指定服务质量参数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendMessage2Mqtt</span><span class="params">(<span class="meta">@Header(MqttHeaders.TOPIC)</span> String topic, <span class="meta">@Header(MqttHeaders.QOS)</span> <span class="keyword">int</span> qos, String payload)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、消息订阅"><a href="#5、消息订阅" class="headerlink" title="5、消息订阅"></a>5、消息订阅</h3><p>消息订阅和我们平时用的MQ消息监听实现思路基本相似，<code>@ServiceActivator</code>注解表明当前方法用于处理<code>MQTT</code>消息，<code>inputChannel</code> 参数指定了用于接收消息的<code>channel</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @ClassName IotMqttSubscriberConfig</span><br><span class="line"> * @Description 消息订阅配置</span><br><span class="line"> * @Author zzm</span><br><span class="line"> * @Data 2020&#x2F;10&#x2F;14 12:48</span><br><span class="line"> * @Version 1.0</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Slf4j</span><br><span class="line">@Configuration</span><br><span class="line">public class IotMqttSubscriberConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private MqttConfig mqttConfig;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private MqttPahoClientFactory mqttClientFactory;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public MessageChannel iotMqttInputChannel() &#123;</span><br><span class="line">        return new DirectChannel();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public MessageProducer inbound() &#123;</span><br><span class="line">        MqttPahoMessageDrivenChannelAdapter adapter &#x3D; new MqttPahoMessageDrivenChannelAdapter(mqttConfig.getClientId(), mqttClientFactory, mqttConfig.getDefaultTopic());</span><br><span class="line">        adapter.setCompletionTimeout(5000);</span><br><span class="line">        adapter.setConverter(new DefaultPahoMessageConverter());</span><br><span class="line">        adapter.setQos(1);</span><br><span class="line">        adapter.setOutputChannel(iotMqttInputChannel());</span><br><span class="line">        return adapter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 消息订阅</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Bean</span><br><span class="line">    @ServiceActivator(inputChannel &#x3D; &quot;iotMqttInputChannel&quot;)</span><br><span class="line">    public MessageHandler handlerTest() &#123;</span><br><span class="line">        return message -&gt; &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                String string &#x3D; message.getPayload().toString();</span><br><span class="line">                System.out.println(&quot;接收到消息：&quot; + string);</span><br><span class="line">            &#125; catch (MessagingException ex) &#123;</span><br><span class="line">                log.error(ex.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、mqtt消息测试控制器"><a href="#6、mqtt消息测试控制器" class="headerlink" title="6、mqtt消息测试控制器"></a>6、mqtt消息测试控制器</h3><p>创建发送消息的API接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> IotMqttController</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> mqtt测试控制器</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zzm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Data</span> 2020/10/14 12:51</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IotMqttController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> IotMqttGateway mqttGateway;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/testMqtt&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sendMqtt</span><span class="params">(<span class="meta">@RequestParam(value = &quot;topic&quot;)</span> String topic, <span class="meta">@RequestParam(value = &quot;message&quot;)</span> String message)</span> </span>&#123;</span><br><span class="line">        mqttGateway.sendMessage2Mqtt(message);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SUCCESS&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="六、测试消息"><a href="#六、测试消息" class="headerlink" title="六、测试消息"></a>六、测试消息</h2><p>额~ 由于本渣渣对硬件一窍不通，为了模拟硬件的发送消息，只能借助一下工具，其实硬件端实现<code>MQTT</code>协议，跟我们前边的基本没什么区别，只不过换种语言嵌入到硬件中而已。</p>
+<p>这里选的测试工具为<code>mqttbox</code>，下载地址：<code>http://workswithweb.com/mqttbox.html</code></p>
+<h3 id="1、测试消息发送"><a href="#1、测试消息发送" class="headerlink" title="1、测试消息发送"></a>1、测试消息发送</h3><p>我们用先用<code>mqttbox</code>模拟向主题<code>mqtt_test_topic</code>发送消息，看后台是否能成功接收到。</p>
+<p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="img">看到后台成功拿到了向主题<code>mqtt_test_topic</code>发送的消息。<img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aN6o66sjW6995KR8TMicianPFib7LmmO5pVicBxPy5qB2BRAw3O6YicsaJkeSdZADr4lXSAcAObZibMq9Nw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h3 id="2、测试消息订阅"><a href="#2、测试消息订阅" class="headerlink" title="2、测试消息订阅"></a>2、测试消息订阅</h3><p>用<code>mqttbox</code>模拟订阅主题<code>mqtt_test_topic</code>，在后台向主题<code>mqtt_test_topic</code>发送一条消息，这里我简单的写了个<code>controller</code>调用API发送消息。</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1:8080/fun/testMqtt?topic=mqtt_test_topic&amp;message=%E6%88%91%E6%98%AF%E5%90%8E%E5%8F%B0%E5%90%91%E4%B8%BB%E9%A2%98">http://127.0.0.1:8080/fun/testMqtt?topic=mqtt_test_topic&amp;message=我是后台向主题</a> mqtt_test_topic 发送的消息</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aN6o66sjW6995KR8TMicianPF1T9FybuS5pYlJlEht62EgcvqsfumpFiaTVZCicQMfYehzPzW3x1goBCA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img">我们看<code>mqttbox</code>的订阅消息，已经成功的接收到了后台的消息，到此我们的<code>MQTT</code>通信环境就算搭建成功了。如果把<code>mqttbox</code>工具换成具体硬件设备，整个流程就是我们常说的智能家居了，其实真的没那么难。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aN6o66sjW6995KR8TMicianPF6FNYzbZSdntD7HcT4PFodEMcSYThDvvfd7kfwSO07s7Rciadge7N3Zg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h2 id="七、应用注意事项"><a href="#七、应用注意事项" class="headerlink" title="七、应用注意事项"></a>七、应用注意事项</h2><p>在我们实际的生产环境中遇到过的问题，这里分享一下让大家少踩坑。</p>
+<h3 id="clientId-要唯一"><a href="#clientId-要唯一" class="headerlink" title="clientId 要唯一"></a>clientId 要唯一</h3><p>在客户端<code>connect</code>连接的时，会有一个<code>clientId</code> 参数，需要每个客户端都保持唯一的。但我们在开发测试阶段<code>clientId</code>直接在代码中写死了，而且服务都是单实例部署，并没有暴露出什么问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MqttPahoMessageDrivenChannelAdapter(mqttConfig.getClientId(), mqttClientFactory(), mqttConfig.getDefaultTopic());</span><br></pre></td></tr></table></figure>
+
+<p>然而在生产环境内侧的时候，由于服务是多实例集群部署，结果出现了下边的奇怪问题。同一时间内只能有一个客户端能拿到消息，其他客户端不但不能消费消息，而且还在不断的掉线重连：<code>Lost connection: 已断开连接; retrying...</code>。</p>
+<p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="img">这就是由于<code>clientId</code>相同导致客户端间相互竞争消费，最后将<code>clientId</code>获取方式换成从发号器中拿，问题就好了，所以这个地方是需要特别注意的。</p>
+<p>平时程序在开发环境没问题，可偏偏到了生产环境就一大堆问题，很多都是因为服务部署方式不同导致的。所以多学习分布式还是很有必要的。</p>
+<h2 id="八、其他中间件"><a href="#八、其他中间件" class="headerlink" title="八、其他中间件"></a>八、其他中间件</h2><p><code>MQTT</code>它只是一种协议，支持<code>MQTT</code>协议的消息中间件产品非常多，下边的也只是其中的一部分</p>
+<ul>
+<li>Mosquitto</li>
+<li>Eclipse Paho</li>
+<li>RabbitMQ</li>
+<li>Apache ActiveMQ</li>
+<li>HiveMQ</li>
+<li>JoramMQ</li>
+<li>ThingMQ</li>
+<li>VerneMQ</li>
+<li>Apache Apollo</li>
+<li>emqttd Xively</li>
+<li>IBM Websphere …..</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我也是第一次做和硬件相关的项目，之前听到智能家居都会觉得好高大上，但实际上手开发后发现，技术嘛万变不离其宗，也只是换种用法而已。</p>
+<blockquote>
+<p>分享来源：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/udFE6k9pPetIWsa6KeErrA">https://mp.weixin.qq.com/s/udFE6k9pPetIWsa6KeErrA</a></p>
+</blockquote>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZZM</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/10/14/SpringBoot-RabbitMQ-%E5%81%9A%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/">http://yoursite.com/2020/10/14/SpringBoot-RabbitMQ-%E5%81%9A%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">Live For Code</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/RabbitMq/">RabbitMq</a><a class="post-meta__tags" href="/tags/JAVA/">JAVA</a><a class="post-meta__tags" href="/tags/SpringBoot/">SpringBoot</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/compress/0dc60fb6fae0000f8a8b45e6f048bd96.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/01/03/MinIO%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/compress/0dc60fb6fae0000f8a8b45e6f048bd96.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MinIO安装配置和使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/11/28/RabbitMq指南/" title="RabbitMq指南"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/CODE-COLOR-COVER.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-28</div><div class="title">RabbitMq指南</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018-2020 - 2020 By ZZM</div><div class="framework-info"></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="http://lweishi.com/">blog</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://lweishi.com"><img class="icp-icon" src="/img/icp.png"/><span>粤ICP备10040994号</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const initData = {
+      el: '#vcomment',
+      appId: 'Jwv9qyFO80YNKdilEQjzJxDo-gzGzoHsz',
+      appKey: 'XBVV4qC4lby4nV1R9SbU8KhS',
+      placeholder: '记得留下你的昵称和邮箱....可以快速收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="//code.tidio.co/jr1nhqzadylyvdhe7vorrruao1vsgpfl.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script></div></body></html>
